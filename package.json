@@ -1,0 +1,38 @@
+{
+  "name": "labs11-intercomApp-BE",
+  "version": "1.0.0",
+  "description": "Lambda Labs11 Intercom App",
+  "main": "index.js",
+  "repository": "https://github.com/intercom-app/labs11-intercomApp-BE",
+  "author": "farste <sfargali@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "cloudinary": "^1.14.0",
+    "cors": "^2.8.5",
+    "datauri": "^2.0.0",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "heroku": "^7.22.10",
+    "knex": "^0.16.3",
+    "multer": "^1.4.1",
+    "ngrok": "^3.1.1",
+    "node": "^11.12.0",
+    "pg": "^7.9.0",
+    "sqlite3": "^4.0.6",
+    "stripe": "6.25.1",
+    "twilio": "^3.29.2"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "jest": "^24.5.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^4.0.2"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "test": "cross-env DB_ENV=testing jest --watch --verbose"
+  }
+}
