@@ -1,4 +1,5 @@
 const express = require('express');
+import { auth } from './middleware/auth';
 const cors = require('cors');
 // var bodyParser = require('body-parser')
 // var jsonParser = bodyParser.json()
@@ -14,6 +15,7 @@ const db = require('../data/dbConfig.js');
 const server = express();
 
 server.use(cors());
+server.use(auth());
 server.use(express.json());
 
 server.use('/api/team', teamRouter);
@@ -28,7 +30,7 @@ server.get('/', (req, res) => {
 });
 
 server.post('/test', (req, res) => {
-    console.log('req', req.body)    
+    console.log('req', req.body);
     res.send('Hello World!');
 });
 
