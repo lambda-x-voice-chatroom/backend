@@ -1,6 +1,14 @@
+require('dotenv').config();
 const express = require('express');
-import { auth } from './middleware/auth';
 const cors = require('cors');
+let admin = require('firebase-admin');
+
+let serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+    // databaseURL: 'https://voicechatroom-1874e.firebaseio.com'
+});
 // var bodyParser = require('body-parser')
 // var jsonParser = bodyParser.json()
 
@@ -15,8 +23,24 @@ const db = require('../data/dbConfig.js');
 const server = express();
 
 server.use(cors());
-server.use(auth());
 server.use(express.json());
+// server.use(auth());
+server.use(function(req, res, next) {
+    // var idToken = req.get('Authorization');
+    let { idToken } = req.body;
+    // idToken comes from the client app
+    admin
+        .auth()
+        .verifyIdToken(idToken)
+        .then(function(decodedToken) {
+            let uid = decodedToken.uid;
+            res.locals.uid = uid;
+            next();
+        })
+        .catch(function(error) {
+            res.status(500).json({ message: 'Invalid token' });
+        });
+});
 
 server.use('/api/team', teamRouter);
 server.use('/api/users', usersRouter);
