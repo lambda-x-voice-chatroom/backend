@@ -8,7 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.19.0",
     "cloudinary": "^1.14.0",
     "cors": "^2.8.5",
     "datauri": "^2.0.0",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "cross-env": "^5.2.0",
     "jest": "^24.5.0",
+    "morgan": "^1.9.1",
     "nodemon": "^1.18.10",
     "supertest": "^4.0.2"
   },
