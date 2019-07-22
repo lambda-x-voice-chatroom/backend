@@ -4,10 +4,9 @@ const { getUserById, addUser } = require('../users/usersModel');
 // Firebase Auth
 let admin = require('firebase-admin');
 
-// let serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+let serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 admin.initializeApp({
-    credential: admin.credential.applicationDefault()
-    // credential: admin.credential.cert(googleServiceAccount)
+    credential: admin.credential.cert(serviceAccount)
 });
 
 const auth = async (req, res, next) => {
