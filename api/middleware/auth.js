@@ -11,7 +11,6 @@ admin.initializeApp({
 });
 
 const auth = async (req, res, next) => {
-    console.log(googleServiceAccount.toJSON());
     try {
         if (req.headers.application) {
             const id = await admin
