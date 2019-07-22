@@ -1,15 +1,17 @@
 require('dotenv').config();
-
 const { getUserById, addUser } = require('../users/usersModel');
 
 // Firebase Auth
 let admin = require('firebase-admin');
-let serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+
+// let serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+    credential: admin.credential.applicationDefault()
+    // credential: admin.credential.cert(googleServiceAccount)
 });
 
 const auth = async (req, res, next) => {
+    console.log(googleServiceAccount.toJSON());
     try {
         if (req.headers.application) {
             const id = await admin
