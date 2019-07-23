@@ -28,8 +28,9 @@ module.exports = {
     },
 
     addUser: async function(user) {
+        console.log(user);
         await db('users').insert(user);
-        return getUserById(user.id);
+        return this.getUserById(user.id);
     },
 
     getUserAccountBalance: function(id) {
