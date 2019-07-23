@@ -20,8 +20,13 @@ router.post('/', async (req, res) => {
         // if (user) {
         //     res.send(200).json({ message: 'Succcess', data: user });
         // } else {
-        console.log(req.body);
-        const user = addUser(req.body);
+
+        const user = addUser({
+            id: id,
+            displayName: req.body.displayName,
+            email: req.body.email,
+            avatar: req.body.photoURL
+        });
         if (user) {
             res.status(201).json({ message: 'User Created', data: user });
         } else {
