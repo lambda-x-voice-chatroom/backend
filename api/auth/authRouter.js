@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
 
         if (decodedToken) {
             let firebaseUser = await admin.auth().getUser(decodedToken.uid);
-            let user = getUserById(firebaseUser.uid);
+            let user = await getUserById(Number(firebaseUser.uid));
             console.log(user);
             if (user != -1) {
                 console.log('if');

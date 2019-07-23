@@ -6,7 +6,6 @@ module.exports = {
     },
 
     getUserById: async function(id) {
-        console.log('getuserbyid: ', id);
         let user = await db('users')
             .where({ id })
             .first();
