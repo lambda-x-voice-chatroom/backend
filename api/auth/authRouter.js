@@ -1,17 +1,26 @@
 const Router = require('express').Router;
 const { getUserById, addUser } = require('../users/usersModel');
 const router = new Router();
-let admin = require('firebase-admin');
+// let admin = require('firebase-admin');
+// let parsed = JSON.parse(
+//     new Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_BASE64, 'base64')
+// );
+
+// admin.initializeApp({
+//     credential: admin.credential.cert(parsed)
+// });
+const firebaseApp = require('../auth/firebase');
 
 router.post('/', async (req, res) => {
     try {
         // Get UID from Google
         let id;
-        await admin
+        await firebaseApp
             .auth()
             .verifyIdToken(req.headers.application)
             .then(function(decodedToken) {
                 id = decodedToken.uid;
+                console.log('id: ', id);
             })
             .catch(function(error) {
                 res.status(403).json({ message: 'Invalid token', data: error });

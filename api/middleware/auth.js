@@ -1,20 +1,21 @@
 require('dotenv').config();
 const { getUserById, addUser } = require('../users/usersModel');
 // Firebase Auth
-let admin = require('firebase-admin');
+const firebaseApp = require('../auth/firebase');
+// let admin = require('firebase-admin');
 
-let parsed = JSON.parse(
-    new Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_BASE64, 'base64')
-);
+// let parsed = JSON.parse(
+//     new Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_BASE64, 'base64')
+// );
 
-admin.initializeApp({
-    credential: admin.credential.cert(parsed)
-});
+// admin.initializeApp({
+//     credential: admin.credential.cert(parsed)
+// });
 
 const auth = async (req, res, next) => {
     try {
         if (req.headers.application) {
-            const id = await admin
+            const id = await firebaseApp
                 .auth()
                 .verifyIdToken(req.headers.application)
                 .then(function(decodedToken) {
