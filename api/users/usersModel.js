@@ -10,7 +10,7 @@ module.exports = {
             .where({ id })
             .first();
         if (user) {
-            return usser;
+            return user;
         } else {
             return -1;
         }
