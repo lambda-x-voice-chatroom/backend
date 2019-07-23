@@ -5,17 +5,27 @@ module.exports = {
         return db('users');
     },
 
-    getUserById: function(id) {
+    getUserById: async function(id) {
         console.log('getuserbyid: ', id);
-        return db('users')
+        let user = await db('users')
             .where({ id })
             .first();
+        if (user) {
+            return usser;
+        } else {
+            return -1;
+        }
     },
 
-    getUserByEmail: function(email) {
-        return db('users')
+    getUserByEmail: async function(email) {
+        let user = await db('users')
             .where({ email })
             .first();
+        if (user) {
+            return usser;
+        } else {
+            return -1;
+        }
     },
 
     addUser: async function(user) {
