@@ -4,7 +4,6 @@ const router = new Router();
 let admin = require('firebase-admin');
 
 router.post('/', async (req, res) => {
-    console.log(req.headers);
     try {
         // Get UID from Google
         const id = await admin
@@ -21,8 +20,9 @@ router.post('/', async (req, res) => {
         // if (user) {
         //     res.send(200).json({ message: 'Succcess', data: user });
         // } else {
-        const user = addUser(req.body.user);
-        res.send(201).json({ message: 'User Created', data: user });
+        console.log(req.body);
+        const user = addUser(req.body);
+        res.status(201).json({ message: 'User Created', data: user });
         // }
         // validate user is in the system
         // Get initial user data from DB and send back to client
