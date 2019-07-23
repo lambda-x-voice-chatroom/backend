@@ -19,7 +19,7 @@ require('./auth/firebase');
 server.use(helmet());
 server.use(
     cors({
-        exposedHeaders: ['Content-Length', 'Authorization']
+        exposedHeaders: ['Content-Length', 'Authorization', 'Accept']
     })
 );
 // server.use(morgan('dev'));
