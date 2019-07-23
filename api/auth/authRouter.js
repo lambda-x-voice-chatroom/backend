@@ -16,23 +16,25 @@ router.post('/', async (req, res) => {
             .catch(function(error) {
                 res.status(403).json({ message: 'Invalid token', data: error });
             });
-        // const user = await getUserById(id);
-        // if (user) {
-        //     res.send(200).json({ message: 'Succcess', data: user });
-        // } else {
-
-        const user = addUser({
-            id: id,
-            displayName: req.body.displayName,
-            email: req.body.email,
-            avatar: req.body.photoURL
-        });
+        const user = await getUserById(id);
         if (user) {
-            res.status(201).json({ message: 'User Created', data: user });
+            res.send(200).json({ message: 'Succcess', data: user });
         } else {
-            res.status(500).json({ message: 'Unable to add user' });
+            const userIfno = addUser({
+                id: id,
+                displayName: req.body.displayName,
+                email: req.body.email,
+                avatar: req.body.photoURL
+            });
+            if (userIfno) {
+                res.status(201).json({
+                    message: 'User Created',
+                    data: userIfno
+                });
+            } else {
+                res.status(500).json({ message: 'Unable to add user' });
+            }
         }
-        // }
         // validate user is in the system
         // Get initial user data from DB and send back to client
     } catch (error) {
