@@ -29,7 +29,7 @@ module.exports = {
 
     addUser: async function(user) {
         await db('users').insert(user);
-        return this.getUserById(user.id);
+        return getUserById(user.id);
     },
 
     getUserAccountBalance: function(id) {
