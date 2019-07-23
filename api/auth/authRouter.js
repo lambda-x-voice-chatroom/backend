@@ -16,6 +16,7 @@ router.post('/', async (req, res) => {
             .catch(function(error) {
                 res.status(403).json({ message: 'Invalid token', data: error });
             });
+        console.log('firebase admin id return: ', id);
         const user = await getUserById(id);
         if (user) {
             res.send(200).json({ message: 'Succcess', data: user });

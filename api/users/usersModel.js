@@ -6,6 +6,7 @@ module.exports = {
     },
 
     getUserById: function(id) {
+        console.log('getuserbyid');
         return db('users')
             .where({ id })
             .first();
@@ -18,8 +19,8 @@ module.exports = {
     },
 
     addUser: async function(user) {
-        const [id] = await db('users').insert(user, 'id');
-        return this.getUserById(id);
+        await db('users').insert(user);
+        return this.getUserById(user.id);
     },
 
     getUserAccountBalance: function(id) {
