@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const server = express();
 const cors = require('cors');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const auth = require('./middleware/auth');
 
 const authRouter = require('./auth/authRouter');
@@ -15,7 +15,7 @@ const billingRouter = require('./billing/billingRouter');
 
 // Middleware
 
-server.use(morgan('dev'));
+// server.use(morgan('dev'));
 server.use(cors());
 server.use(express.json());
 server.use('/api/auth', authRouter);
