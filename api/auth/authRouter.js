@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
                 console.log('if');
                 res.status(200).json({
                     message: 'success',
-                    data: user
+                    data: { user }
                 });
             } else {
                 console.log('else');
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
                 if (userIfno) {
                     res.status(201).json({
                         message: 'User Created',
-                        data: userInfo
+                        data: { userInfo }
                     });
                 } else {
                     res.status(500).json({ message: 'Unable to add user' });
