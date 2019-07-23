@@ -1,6 +1,5 @@
 require('dotenv').config();
 const { getUserById, addUser } = require('../users/usersModel');
-
 // Firebase Auth
 let admin = require('firebase-admin');
 
