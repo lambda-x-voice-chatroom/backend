@@ -2,9 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const server = express();
 const cors = require('cors');
-const morgan = require('morgan');
 const helmet = require('helmet');
 const auth = require('./middleware/auth');
+// const morgan = require('morgan');
 
 const authRouter = require('./auth/authRouter');
 const teamRouter = require('./team/teamRouter');
@@ -19,7 +19,7 @@ require('./auth/firebase');
 
 server.use(helmet());
 server.use(cors());
-server.use(morgan('dev'));
+// server.use(morgan('dev'));
 server.use(express.json());
 server.use('/api/auth', authRouter);
 server.use(auth);
