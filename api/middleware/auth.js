@@ -4,9 +4,25 @@ const { getUserById, addUser } = require('../users/usersModel');
 // Firebase Auth
 let admin = require('firebase-admin');
 
-let serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+let parsed = JSON.parse(
+    new Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_BASE64, 'base64')
+);
+
+// let serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 admin.initializeApp({
-    credential: admin.credential.cert(JSON.parse(serviceAccount))
+    credential: admin.credential.cert(parsed)
+    // credential: admin.credential.cert({
+    //     type: process.env.GF_TYPE,
+    //     project_id: process.env.GF_PROJECT_ID,
+    //     private_key_id: process.env.GF_PRIVATE_KEY_ID,
+    //     private_key:NULL,
+    //     client_email: process.env.GF_CLIENT_EMAIL,
+    //     client_id: process.env.GF_CLIENT_ID,
+    //     auth_uri: process.env.GF_AUTH_URI,
+    //     token_uri: process.env.GF_TOKEN_URI,
+    //     auth_provider_x509_cert_url: process.env.GF_AUTH_PROVIDER_X509_CERT_URL,
+    //     client_x509_cert_url: process.env.GF_CLIENT_X509_CERT_URL
+    // })
 });
 
 const auth = async (req, res, next) => {
