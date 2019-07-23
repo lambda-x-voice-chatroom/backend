@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
                 console.log('if');
                 res.status(200).json({
                     message: 'success',
-                    data: JSON.stringify(user)
+                    data: user
                 });
             } else {
                 console.log('else');
