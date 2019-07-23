@@ -6,12 +6,12 @@ let admin = require('firebase-admin');
 router.post('/', async (req, res) => {
     try {
         // Get UID from Google
-        const id = await admin
+        let id;
+        await admin
             .auth()
             .verifyIdToken(req.headers.application)
             .then(function(decodedToken) {
-                let uid = decodedToken.uid;
-                return uid;
+                id = decodedToken.uid;
             })
             .catch(function(error) {
                 res.status(403).json({ message: 'Invalid token', data: error });
