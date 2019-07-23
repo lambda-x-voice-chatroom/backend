@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
                     email: user.email,
                     avatar: user.photoURL
                 });
-                if (userIfno) {
+                if (userInfo) {
                     res.status(201).json({
                         message: 'User Created',
                         data: { userInfo }
