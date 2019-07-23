@@ -22,7 +22,7 @@ server.use(cors());
 // server.use(morgan('dev'));
 server.use(express.json());
 server.use('/api/auth', authRouter);
-server.use(auth);
+// server.use(auth);
 
 // Routes
 

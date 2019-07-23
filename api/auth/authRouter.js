@@ -8,10 +8,9 @@ router.get('/', async (req, res) => {
     try {
         // Get UID from Google
         let decodedToken = await admin.auth().verifyIdToken(token);
-
         if (decodedToken) {
             let firebaseUser = await admin.auth().getUser(decodedToken.uid);
-            let user = await getUserById(Number(firebaseUser.uid));
+            let user = await getUserById(firebaseUser.uid);
             console.log(user);
             if (user != -1) {
                 console.log('if');
