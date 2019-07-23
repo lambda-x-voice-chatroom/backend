@@ -5,7 +5,6 @@ const { getUserById, addUser } = require('../users/usersModel');
 
 router.get('/', async (req, res) => {
     const token = req.headers.authorization;
-    console.log('TOKEN: ', token);
     try {
         // Get UID from Google
         let decodedToken = await admin.auth().verifyIdToken(token);
