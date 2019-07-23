@@ -4,7 +4,7 @@ const router = require('express').Router();
 const { getUserById, addUser } = require('../users/usersModel');
 
 router.get('/', async (req, res) => {
-    const token = req.headers.Authorization;
+    const token = req.headers.application;
     console.log('TOKEN: ', token);
     try {
         // Get UID from Google
