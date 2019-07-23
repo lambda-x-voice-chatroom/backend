@@ -1,52 +1,44 @@
-const Router = require('express').Router;
+const admin = require('firebase-admin');
+const util = require('util');
+const router = require('express').Router();
 const { getUserById, addUser } = require('../users/usersModel');
-const router = new Router();
-// let admin = require('firebase-admin');
-// let parsed = JSON.parse(
-//     new Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_BASE64, 'base64')
-// );
 
-// admin.initializeApp({
-//     credential: admin.credential.cert(parsed)
-// });
-const firebaseApp = require('../auth/firebase');
-
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
+    const token = req.headers.application;
     try {
         // Get UID from Google
-        let id;
-        await firebaseApp
-            .auth()
-            .verifyIdToken(req.headers.application)
-            .then(function(decodedToken) {
-                id = decodedToken.uid;
-                console.log('id: ', id);
-            })
-            .catch(function(error) {
-                res.status(403).json({ message: 'Invalid token', data: error });
-            });
-        console.log('firebase admin id return: ', id);
-        const user = await getUserById(id);
-        if (user) {
-            res.send(200).json({ message: 'Succcess', data: user });
-        } else {
-            const userIfno = addUser({
-                id: id,
-                displayName: req.body.displayName,
-                email: req.body.email,
-                avatar: req.body.photoURL
-            });
-            if (userIfno) {
-                res.status(201).json({
-                    message: 'User Created',
-                    data: userIfno
+        let decodedToken = await admin.auth().verifyIdToken(token);
+
+        if (decodedToken) {
+            let firebaseUser = await admin.auth().getUser(decodedToken.uid);
+            let user = getUserById(firebaseUser.uid);
+            console.log(user);
+            if (user) {
+                console.log('if');
+                res.status(200).json({
+                    message: 'success',
+                    data: JSON.stringify(user)
                 });
             } else {
-                res.status(500).json({ message: 'Unable to add user' });
+                console.log('else');
+                const userInfo = addUser({
+                    id: user.uid,
+                    displayName: user.displayName,
+                    email: user.email,
+                    avatar: user.photoURL
+                });
+                if (userIfno) {
+                    res.status(201).json({
+                        message: 'User Created',
+                        data: userInfo
+                    });
+                } else {
+                    res.status(500).json({ message: 'Unable to add user' });
+                }
             }
+        } else {
+            res.status(403).json({ message: 'Invalid token', data: error });
         }
-        // validate user is in the system
-        // Get initial user data from DB and send back to client
     } catch (error) {
         console.log(error);
     }

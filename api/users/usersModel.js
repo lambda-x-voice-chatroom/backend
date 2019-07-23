@@ -6,7 +6,7 @@ module.exports = {
     },
 
     getUserById: function(id) {
-        console.log('getuserbyid');
+        console.log('getuserbyid: ', id);
         return db('users')
             .where({ id })
             .first();

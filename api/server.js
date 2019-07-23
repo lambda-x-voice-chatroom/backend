@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const server = express();
 const cors = require('cors');
-// const morgan = require('morgan');
+const morgan = require('morgan');
+const helmet = require('helmet');
 const auth = require('./middleware/auth');
 
 const authRouter = require('./auth/authRouter');
@@ -13,10 +14,12 @@ const voiceRouter = require('./voice/voiceRouter');
 const uploadRouter = require('./upload/uploadRouter');
 const billingRouter = require('./billing/billingRouter');
 
+require('./auth/firebase');
 // Middleware
 
-// server.use(morgan('dev'));
+server.use(helmet());
 server.use(cors());
+server.use(morgan('dev'));
 server.use(express.json());
 server.use('/api/auth', authRouter);
 server.use(auth);
