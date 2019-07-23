@@ -22,7 +22,11 @@ router.post('/', async (req, res) => {
         // } else {
         console.log(req.body);
         const user = addUser(req.body);
-        res.status(201).json({ message: 'User Created', data: user });
+        if (user) {
+            res.status(201).json({ message: 'User Created', data: user });
+        } else {
+            res.status(500).json({ message: 'Unable to add user' });
+        }
         // }
         // validate user is in the system
         // Get initial user data from DB and send back to client
