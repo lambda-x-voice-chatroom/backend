@@ -18,7 +18,7 @@ module.exports = {
     },
 
     addUser: async function(user) {
-        const [id] = await d;
+        const [id] = await db('users').insert(user, 'id');
         return this.getUserById(id);
     },
 
