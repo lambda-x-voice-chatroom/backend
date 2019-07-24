@@ -1,11 +1,20 @@
 const db = require('../../data/dbConfig.js');
 
 module.exports = {
-    getUsers: function() {
+    getUsers,
+    getUserById,
+    getUserByEmail,
+    addUser,
+    getUserAccountBalance,
+    getLast4,
+    updateUser,
+    deleteUser,
+}
+    function getUsers() {
         return db('users');
     },
 
-    getUserById: async function(id) {
+    async function getUserById(id) {
         let user = await db('users')
             .where({ id })
             .first();
@@ -16,7 +25,7 @@ module.exports = {
         }
     },
 
-    getUserByEmail: async function(email) {
+    async function getUserByEmail(email) {
         let user = await db('users')
             .where({ email })
             .first();
@@ -27,34 +36,33 @@ module.exports = {
         }
     },
 
-    addUser: async function(user) {
+    async function addUser(user) {
         await db('users').insert(user);
-        let userInfo = await this.getUserById(user.id);
-        return userInfo;
+        return getUserById(user.id);
     },
 
-    getUserAccountBalance: function(id) {
+    function getUserAccountBalance(id) {
         return db('users')
             .where({ id: id })
             .first()
             .select('accountBalance');
     },
 
-    getLast4: function(id) {
+    function getLast4(id) {
         return db('users')
             .where({ id: id })
             .first()
             .select('last4');
     },
 
-    updateUser: function(id, changes) {
+    function updateUser(id, changes) {
         return db('users')
             .where({ id })
             .update(changes)
             .then(count => (count > 0 ? this.getUserById(id) : null));
     },
 
-    deleteUser: async function(id) {
+    async function deleteUser(id) {
         const activitiesDeleted = await db('activities')
             .where('userId', '=', `${id}`)
             .del();
@@ -64,4 +72,4 @@ module.exports = {
                 .del();
         }
     }
-};
+
