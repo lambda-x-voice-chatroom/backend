@@ -5,34 +5,27 @@ exports.up = function(knex, Promise) {
         tbl.increments(); // creates an id (if you don't pass anything here the default name of the column will be 'id'), makes it integer, makes it autoincrement
 
         //foreign key: groupId
-        tbl
-            .integer('groupId')
+        tbl.integer('groupId')
             .notNullable()
             .references('id')
             .inTable('groups')
             .onUpdate('CASCADE')
             .onDelete('CASCADE');
-        
+
         //foreign key: userId
-        tbl
-            .integer('userId')
+        tbl.string('userId')
             .notNullable()
             .references('id')
             .inTable('users')
             .onUpdate('CASCADE')
             .onDelete('CASCADE');
-        
-        //activity
-        tbl
-            .string('activity', 128)
-            .notNullable();
-        
-        //createdAt
-        tbl
-            .timestamp('createdAt')
-            .defaultTo(knex.fn.now())
 
-    })
+        //activity
+        tbl.string('activity', 128).notNullable();
+
+        //createdAt
+        tbl.timestamp('createdAt').defaultTo(knex.fn.now());
+    });
 };
 
 exports.down = function(knex, Promise) {

@@ -1,7 +1,7 @@
 require('dotenv').config({path: '../../.env'});
 const router = require('express').Router();
 const stripe = require("stripe")(process.env.SK_TEST);
-router.use(require("body-parser").text());
+// router.use(require("body-parser").text());
 
 
 //Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.

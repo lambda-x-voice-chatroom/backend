@@ -10,7 +10,7 @@ const pushCredSid = process.env.PUSH_CREDENTIAL_SID;
 const outgoingApplicationSid = process.env.APP_SID;
 const callerNumber = process.env.CALLER_ID;
 const client = require("twilio")(accountSid, authToken);
-const urlencoded = require('body-parser').urlencoded;
+// const urlencoded = require('body-parser').urlencoded;
 
 exports.tokenGenerator = function tokenGenerator(req) {
   const defaultIdentity = Date.now();
