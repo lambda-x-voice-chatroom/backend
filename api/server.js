@@ -1,8 +1,12 @@
+require('dotenv').config();
 const express = require('express');
+const server = express();
 const cors = require('cors');
-// var bodyParser = require('body-parser')
-// var jsonParser = bodyParser.json()
+const helmet = require('helmet');
+const auth = require('./middleware/auth');
+// const morgan = require('morgan');
 
+const authRouter = require('./auth/authRouter');
 const teamRouter = require('./team/teamRouter');
 const usersRouter = require('./users/usersRouter');
 const groupRouter = require('./groups/groupsRouter');
@@ -10,11 +14,20 @@ const voiceRouter = require('./voice/voiceRouter');
 const uploadRouter = require('./upload/uploadRouter');
 const billingRouter = require('./billing/billingRouter');
 
-const db = require('../data/dbConfig.js');
-const server = express();
-
-server.use(cors());
+require('./auth/firebase');
+// Middleware
+server.use(helmet());
+server.use(
+    cors({
+        exposedHeaders: ['Content-Length', 'Authorization', 'Accept']
+    })
+);
+// server.use(morgan('dev'));
 server.use(express.json());
+server.use('/api/auth', authRouter);
+// server.use(auth);
+
+// Routes
 
 server.use('/api/team', teamRouter);
 server.use('/api/users', usersRouter);
@@ -24,11 +37,6 @@ server.use('/api/upload', uploadRouter);
 server.use('/api/billing', billingRouter);
 
 server.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
-server.post('/test', (req, res) => {
-    console.log('req', req.body)    
     res.send('Hello World!');
 });
 

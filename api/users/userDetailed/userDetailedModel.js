@@ -10,40 +10,40 @@ const { getGroupInviteesDetailed } = require('../../groups/groupInvitees/groupIn
 
 module.exports = {
 
-    getUserDetailed: async function(id) {
+    // getUserDetailed: async function(id) {
 
-        const user = await getUserById(id);
-        let groupsOwned = await getGroupsOwnedDetailed(id);
-        let groupsBelongedTo = await getGroupsBelongedDetailed(id);
-        let groupsInvitedTo = await getGroupsInvitedDetailed(id);
+    //     const user = await getUserById(id);
+    //     let groupsOwned = await getGroupsOwnedDetailed(id);
+    //     let groupsBelongedTo = await getGroupsBelongedDetailed(id);
+    //     let groupsInvitedTo = await getGroupsInvitedDetailed(id);
 
-        groupsOwned = await this.getActivites(groupsOwned);
-        groupsBelongedTo = await this.getActivites(groupsBelongedTo);
-        groupsInvitedTo = await this.getActivites(groupsInvitedTo);
+    //     groupsOwned = await this.getActivites(groupsOwned);
+    //     groupsBelongedTo = await this.getActivites(groupsBelongedTo);
+    //     groupsInvitedTo = await this.getActivites(groupsInvitedTo);
 
-        groupsOwned = await this.getParticipants(groupsOwned);
-        groupsBelongedTo = await this.getParticipants(groupsBelongedTo);
-        groupsInvitedTo = await this.getParticipants(groupsInvitedTo);
+    //     groupsOwned = await this.getParticipants(groupsOwned);
+    //     groupsBelongedTo = await this.getParticipants(groupsBelongedTo);
+    //     groupsInvitedTo = await this.getParticipants(groupsInvitedTo);
 
-        groupsOwned = await this.getOwners(groupsOwned);
-        groupsBelongedTo = await this.getOwners(groupsBelongedTo);
-        groupsInvitedTo = await this.getOwners(groupsInvitedTo);
+    //     groupsOwned = await this.getOwners(groupsOwned);
+    //     groupsBelongedTo = await this.getOwners(groupsBelongedTo);
+    //     groupsInvitedTo = await this.getOwners(groupsInvitedTo);
 
-        groupsOwned = await this.getMembers(groupsOwned);
-        groupsBelongedTo = await this.getMembers(groupsBelongedTo);
-        groupsInvitedTo = await this.getMembers(groupsInvitedTo);
+    //     groupsOwned = await this.getMembers(groupsOwned);
+    //     groupsBelongedTo = await this.getMembers(groupsBelongedTo);
+    //     groupsInvitedTo = await this.getMembers(groupsInvitedTo);
 
-        groupsOwned = await this.getInvitees(groupsOwned);
-        groupsBelongedTo = await this.getInvitees(groupsBelongedTo);
-        groupsInvitedTo = await this.getInvitees(groupsInvitedTo);
+    //     groupsOwned = await this.getInvitees(groupsOwned);
+    //     groupsBelongedTo = await this.getInvitees(groupsBelongedTo);
+    //     groupsInvitedTo = await this.getInvitees(groupsInvitedTo);
 
-        return {
-            ...user,
-            groupsOwned,
-            groupsBelongedTo,
-            groupsInvitedTo
-        }
-    },
+    //     return {
+    //         ...user,
+    //         groupsOwned,
+    //         groupsBelongedTo,
+    //         groupsInvitedTo
+    //     }
+    // },
 
     getActivites: async function (groups) {  
         const promises = groups.map(async group => {
