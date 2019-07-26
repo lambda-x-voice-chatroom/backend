@@ -3,24 +3,19 @@ const { getUserById, addUser } = require('../users/usersModel');
 require('dotenv').config();
 
 const auth = async (req, res, next) => {
+    console.log('authorization', req.headers.authorization);
     try {
         if (req.headers.authorization) {
-            const id = await admin
+            const decodedToken = await admin
                 .auth()
-                .verifyIdToken(req.headers.application)
-                .then(function(decodedToken) {
-                    req.id = decodedToken.uid;
-
-                    return next();
-                })
-                .catch(function(error) {
-                    res.status(403).json({ message: 'Invalid token' });
-                });
+                .verifyIdToken(req.headers.authorization);
+            res.locals.uid = decodedToken.uid;
+            next();
         } else {
             res.status(403).json({ message: 'No authentication token' });
         }
     } catch (err) {
-        console.log(err);
+        console.log('error: ', err);
     }
 };
 module.exports = auth;
