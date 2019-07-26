@@ -10,11 +10,10 @@ const groupCallStatusRouter = require('./groupCallStatus/groupCallStatusRouter')
 const groupCallParticipants = require('./groupCallParticipants/groupCallParticipantsRouter');
 
 // api/groups
-
 router.get('/', async (req, res) => {
     try {
         const groups = await groupsModel.getAllGroups();
-        res.status(200).json(groups);
+        res.status(200).json({ message: 'success', data: groups });
     } catch (err) {
         res.status(500).json(err);
     }
@@ -25,7 +24,6 @@ router.post('/', async (req, res) => {
     try {
         const newGroup = await groupsModel.addGroup(group);
         res.status(201).json(newGroup);
-
     } catch (err) {
         res.status(500).json(err);
     }
@@ -46,14 +44,13 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        await groupsModel.updateGroup(id, {...req.body});
+        await groupsModel.updateGroup(id, { ...req.body });
         const updatedGroup = await groupsModel.getGroupByID(id);
         res.status(200).json(updatedGroup);
     } catch (err) {
         res.status(500).json(err);
     }
 });
-
 
 router.delete('/:id', async (req, res) => {
     const id = req.params.id;
@@ -67,34 +64,58 @@ router.delete('/:id', async (req, res) => {
 
 // api/groups/:id/<subroutes>
 
-router.use('/:id/groupMembers', function(req, res, next) {
-    req.groupId = req.params.id;
-    next()
-}, groupMembersRouter);
+router.use(
+    '/:id/groupMembers',
+    function(req, res, next) {
+        req.groupId = req.params.id;
+        next();
+    },
+    groupMembersRouter
+);
 
-router.use('/:id/groupOwners', function(req, res, next) {
-    req.groupId = req.params.id;
-    next()
-}, groupOwnersRouter);
+router.use(
+    '/:id/groupOwners',
+    function(req, res, next) {
+        req.groupId = req.params.id;
+        next();
+    },
+    groupOwnersRouter
+);
 
-router.use('/:id/groupInvitees', function(req, res, next) {
-    req.groupId = req.params.id;
-    next()
-}, groupInviteesRouter);
+router.use(
+    '/:id/groupInvitees',
+    function(req, res, next) {
+        req.groupId = req.params.id;
+        next();
+    },
+    groupInviteesRouter
+);
 
-router.use('/:id/activities', function(req, res, next) {
-    req.groupId = req.params.id;
-    next()
-}, groupActivitiesRouter);
+router.use(
+    '/:id/activities',
+    function(req, res, next) {
+        req.groupId = req.params.id;
+        next();
+    },
+    groupActivitiesRouter
+);
 
-router.use('/:id/callStatus', function(req, res, next) {
-    req.groupId = req.params.id;
-    next()
-}, groupCallStatusRouter);
+router.use(
+    '/:id/callStatus',
+    function(req, res, next) {
+        req.groupId = req.params.id;
+        next();
+    },
+    groupCallStatusRouter
+);
 
-router.use('/:id/callParticipants', function(req, res, next) {
-    req.groupId = req.params.id;
-    next()
-}, groupCallParticipants);
+router.use(
+    '/:id/callParticipants',
+    function(req, res, next) {
+        req.groupId = req.params.id;
+        next();
+    },
+    groupCallParticipants
+);
 
 module.exports = router;
