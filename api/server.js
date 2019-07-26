@@ -4,7 +4,7 @@ const server = express();
 const cors = require('cors');
 const helmet = require('helmet');
 const auth = require('./middleware/auth');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 
 const authRouter = require('./auth/authRouter');
 const teamRouter = require('./team/teamRouter');
@@ -22,7 +22,7 @@ server.use(
         exposedHeaders: ['Content-Length', 'Authorization', 'Accept']
     })
 );
-server.use(morgan('dev'));
+// server.use(morgan('dev'));
 server.use(express.json());
 server.use('/api/auth', authRouter);
 server.use(auth);
