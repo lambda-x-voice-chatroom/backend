@@ -1,0 +1,38 @@
+{
+    "owned": [
+        {
+            "callStatus": false,
+            "groupId": 29,
+            "groupName": "Test Group"
+        },
+        {
+            "callStatus": false,
+            "groupId": 29,
+            "groupName": "Test Group"
+        }
+    ],
+    "belonged": [
+        {
+            "callStatus": false,
+            "groupId": 29,
+            "groupName": "Test Group"
+        },
+        {
+            "callStatus": false,
+            "groupId": 29,
+            "groupName": "Test Group"
+        }
+    ],
+    "invited": [
+        {
+            "callStatus": false,
+            "groupId": 29,
+            "groupName": "Test Group"
+        },
+        {
+            "callStatus": false,
+            "groupId": 29,
+            "groupName": "Test Group"
+        }
+    ]
+}

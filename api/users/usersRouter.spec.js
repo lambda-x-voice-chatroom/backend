@@ -41,7 +41,7 @@ describe('usersRouter', () => {
             expect(res.body[0].email).toBe(user1.email);
             expect(res.body[0].phoneNumber).toBe(null);
             expect(res.body[0].callStatus).toBe(0);
-            expect(res.body[0].billingSubcription).toBe("free");
+            expect(res.body[0].billingSubscription).toBe("free");
             expect(res.body[0].createdAt).toBeDefined();
         })
 
@@ -92,7 +92,7 @@ describe('usersRouter', () => {
             expect(res.body.email).toBe(user1.email);
             expect(res.body.phoneNumber).toBe(null);
             expect(res.body.callStatus).toBe(0);
-            expect(res.body.billingSubcription).toBe("free");
+            expect(res.body.billingSubscription).toBe("free");
             expect(res.body.createdAt).toBeDefined();
             
         })
@@ -104,7 +104,7 @@ describe('usersRouter', () => {
         const changes = {
             displayName: 'Chelsea Tolnai',
             phoneNumber: 5555555555,
-            billingSubcription: 'premium'
+            billingSubscription: 'premium'
         };
 
         beforeEach( async () => {
@@ -124,7 +124,7 @@ describe('usersRouter', () => {
             expect(res.body.email).toBe(user1.email);
             expect(res.body.phoneNumber).toBe(changes.phoneNumber);
             expect(res.body.callStatus).toBe(0);
-            expect(res.body.billingSubcription).toBe(changes.billingSubcription);
+            expect(res.body.billingSubscription).toBe(changes.billingSubscription);
             expect(res.body.createdAt).toBeDefined();
         })
 

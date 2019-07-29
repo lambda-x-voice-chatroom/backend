@@ -5,6 +5,7 @@ const { getUserById, addUser } = require('../users/usersModel');
 
 router.get('/', async (req, res) => {
     const token = req.headers.authorization;
+    console.log(token);
     try {
         let decodedToken = await admin.auth().verifyIdToken(token);
         if (decodedToken) {
@@ -35,7 +36,7 @@ router.get('/', async (req, res) => {
             res.status(403).json({ message: 'Invalid token', data: error });
         }
     } catch (error) {
-        console.log('GET /Users : ', error);
+        console.log(error);
         res.status(500).json({ message: 'Server error', data: error });
     }
 });

@@ -23,7 +23,7 @@ describe('usersModel', () => {
             expect(res[0].email).toBe(user1.email);
             expect(res[0].phoneNumber).toBe(null);
             expect(res[0].callStatus).toBe(0);
-            expect(res[0].billingSubcription).toBe("free");
+            expect(res[0].billingSubscription).toBe("free");
             expect(res[0].createdAt).toBeDefined();
         });
 
@@ -67,7 +67,7 @@ describe('usersModel', () => {
             expect(res.email).toBe(user1.email);
             expect(res.phoneNumber).toBe(null);
             expect(res.callStatus).toBe(0);
-            expect(res.billingSubcription).toBe("free");
+            expect(res.billingSubscription).toBe("free");
             expect(res.createdAt).toBeDefined();
         });
     });
@@ -78,7 +78,7 @@ describe('usersModel', () => {
             const changes = {
                 displayName: 'Chelsea Tolnai',
                 phoneNumber: 5555555555,
-                billingSubcription: 'premium'
+                billingSubscription: 'premium'
             };
 
             await usersModel.updateUser(id, changes);
@@ -91,7 +91,7 @@ describe('usersModel', () => {
             expect(res.email).toBe(user1.email);
             expect(res.phoneNumber).toBe(changes.phoneNumber);
             expect(res.callStatus).toBe(0);
-            expect(res.billingSubcription).toBe(changes.billingSubcription);
+            expect(res.billingSubscription).toBe(changes.billingSubscription);
             expect(res.createdAt).toBeDefined();
 
         });

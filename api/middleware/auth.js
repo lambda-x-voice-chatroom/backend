@@ -3,7 +3,6 @@ const { getUserById, addUser } = require('../users/usersModel');
 require('dotenv').config();
 
 const auth = async (req, res, next) => {
-    console.log('authorization', req.headers.authorization);
     try {
         if (req.headers.authorization) {
             const decodedToken = await admin

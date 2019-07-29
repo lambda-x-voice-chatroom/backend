@@ -9,7 +9,7 @@ const groupActivitiesRouter = require('./groupActivities/groupActivitiesRouter')
 const groupCallStatusRouter = require('./groupCallStatus/groupCallStatusRouter');
 const groupCallParticipants = require('./groupCallParticipants/groupCallParticipantsRouter');
 
-// api/groups
+// api/groups - Get all groups for user
 router.get('/', async (req, res) => {
     try {
         const groups = await groupsModel.getAllGroups();
