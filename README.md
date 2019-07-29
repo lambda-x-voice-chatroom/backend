@@ -1,9 +1,3 @@
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline. Feel free to add your own flare to it.
-
-🚫 The numbers 1️⃣ through 3️⃣ next to each item represent the week that part of the docs needs to be comepleted by. Make sure to delete the numbers by the end of Labs.
-
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
 # API Documentation
 
 #### 1️⃣ Backend delpoyed at [Lambda Voice Chat Backend](https://lambda-voice-chat.herokuapp.com/) <br>
@@ -12,8 +6,6 @@
 
 To get the server running locally:
 
-🚫 adjust these scripts to match your project
-
 -   Clone this repo
 -   **yarn install** to install all required dependencies
 -   **yarn server** to start the local server
@@ -21,16 +13,9 @@ To get the server running locally:
 
 ### Backend framework goes here
 
-🚫 Why did you choose this framework?
-
--   Point One
--   Point Two
--   Point Three
--   Point Four
+-   Backend built using Node and Express
 
 ## 2️⃣ Endpoints
-
-🚫This is a placeholder, replace the endpoints, access controll, and descriptioin to match your project
 
 #### Organization Routes
 
@@ -52,8 +37,6 @@ To get the server running locally:
 | DELETE | `/users/:userId`        | owners, supervisors |                                                    |
 
 # Data Model
-
-🚫This is just an example. Replace this with your data model
 
 #### 2️⃣ ORGANIZATIONS
 
@@ -92,8 +75,6 @@ To get the server running locally:
 
 ## 2️⃣ Actions
 
-🚫 This is an example, replace this with the actions that pertain to your backend
-
 `getOrgs()` -> Returns all organizations
 
 `getOrg(orgId)` -> Returns a single organization by ID
@@ -123,11 +104,12 @@ In order for the app to function correctly, the user must set up their own envir
 create a .env file that includes the following:
 
 🚫 These are just examples, replace them with the specifics for your app
-  
- _ STAGING_DB - optional development db for using functionality not available in SQLite
-_ NODE_ENV - set to "development" until ready for "production"
-_ JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;_(-_=+)') for i in range(50)])
-_ SENDGRID_API_KEY - this is generated in your Sendgrid account \* stripe_secret - this is generated in the Stripe dashboard
+
+_ STAGING_DB - optional development db for using functionality not available in SQLite
+_ NODE\*ENV - set to "development" until ready for "production"
+
+-   JWT*SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-_=+)') for i in range(50)])
+    _ SENDGRID_API_KEY - this is generated in your Sendgrid account \* stripe_secret - this is generated in the Stripe dashboard
 
 ## Contributing
 
@@ -168,5 +150,5 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Frontend Documentation](🚫link to your frontend readme here) for details on the fronend of our project.
-🚫 Add DS iOS and/or Andriod links here if applicable.
+See [Frontend Documentation](https://github.com/lambda-x-voice-chatroom/frontend)
+See [Android Documentation](https://github.com/lambda-x-voice-chatroom/android)
