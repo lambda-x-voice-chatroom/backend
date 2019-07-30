@@ -1,5 +1,5 @@
 require('dotenv');
-const getUserById = require('../users/usersModel');
+const { getUserById } = require('../users/usersModel');
 const router = require('express').Router();
 // const stripe = require("stripe")(process.env.SK_TEST);
 // router.use(require("body-parser").text());
@@ -256,7 +256,7 @@ router.post('/updateCreditCard', async (req, res) => {
         console.log(sourceId);
         console.log(res.locals.uid);
         // Step 2: Get user Stripe ID from DB
-        const user = await getUserById(res.locals.uid);
+        const user = getUserById(res.locals.uid);
         console.log(user);
         //step 3: update the default source associated with the customer on stripe's backend
         // attach source to the customer object in stripe's backend
