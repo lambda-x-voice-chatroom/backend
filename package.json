@@ -1,9 +1,9 @@
 {
-    "name": "labs11-intercomApp-BE",
+    "name": "LambdaX-VoiceChat-BE",
     "version": "1.0.0",
-    "description": "Lambda Labs11 Intercom App",
+    "description": "Lambda X Voice Chat App",
     "main": "index.js",
-    "repository": "https://github.com/intercom-app/labs11-intercomApp-BE",
+    "repository": "https://github.com/lambda-x-voice-chatroom/backend",
     "author": "farste <sfargali@gmail.com>",
     "license": "MIT",
     "dependencies": {
