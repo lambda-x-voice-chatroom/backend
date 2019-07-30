@@ -31,6 +31,7 @@ router.get('/', async (req, res) => {
             const stripeCustomerObject = await stripe.customers.create({
                 email: req.locals.email
             });
+            console.log(stripeCustomerObject);
             userInfo.stripeId = await stripeCustomerObject.id;
 
             //user.twilioSubSID = await twilioSubSID.sid;
