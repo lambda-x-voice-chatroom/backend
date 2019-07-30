@@ -1,5 +1,5 @@
 require('dotenv');
-const { getUserById } = require('../users/usersModel');
+const { getUserById, updateUser } = require('../users/usersModel');
 const router = require('express').Router();
 // const stripe = require("stripe")(process.env.SK_TEST);
 // router.use(require("body-parser").text());
@@ -263,7 +263,7 @@ router.post('/updateCreditCard', async (req, res) => {
         const response = await stripe.customers.update(user.stripeId, {
             source: sourceId
         });
-        console.log(response.sources.data[0].card.last4);
+        console.log('LAST4: ', response.sources.data[0].card.last4);
         await updateUser(req.locals.uid, {
             last4: response.sources.data[0].card.last4
         });
