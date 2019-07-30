@@ -253,9 +253,10 @@ router.post('/updateCreditCard', async (req, res) => {
     try {
         // //step 1: Create the source on the front-end and send it here to the backend. Receive new source here.
         const sourceId = req.body.sourceId;
-
+        console.log(sourceId);
+        console.log(res.locals.uid);
         // Step 2: Get user Stripe ID from DB
-        const user = getUserById(res.locals.uid);
+        const user = await getUserById(res.locals.uid);
         console.log(user);
         //step 3: update the default source associated with the customer on stripe's backend
         // attach source to the customer object in stripe's backend

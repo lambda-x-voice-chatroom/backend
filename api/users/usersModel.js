@@ -20,6 +20,7 @@ function getUsers() {
  * @param {string} id
  */
 async function getUserById(id) {
+    console.log('getUserById: ', id);
     let user = await db('users')
         .where({ id })
         .first();
