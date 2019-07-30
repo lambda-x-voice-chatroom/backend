@@ -27,10 +27,10 @@ router.get('/', async (req, res) => {
                 });
 
                 // Twilio
-                const twilioSubSID = await client.api.accounts.create({
-                    friendlyName: firebaseUser.email
-                });
-                console.log(twilioSubSID.sid);
+                // const twilioSubSID = await client.api.accounts.create({
+                //     friendlyName: firebaseUser.email
+                // });
+                // console.log(twilioSubSID.sid);
 
                 const user = await addUser({
                     id: firebaseUser.uid,
