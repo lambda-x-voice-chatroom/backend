@@ -28,11 +28,11 @@ router.get('/', async (req, res) => {
             //const twilioSubSID = await client.api.accounts.create({
             //friendlyName: req.body.email});
 
-            const stripeCustomerObject = await stripe.customers.create({
-                email: req.locals.email
-            });
-            console.log(stripeCustomerObject);
-            userInfo.stripeId = await stripeCustomerObject.id;
+            // const stripeCustomerObject = await stripe.customers.create({
+            //     email: req.locals.email
+            // });
+            // console.log(stripeCustomerObject);
+            // userInfo.stripeId = await stripeCustomerObject.id;
 
             //user.twilioSubSID = await twilioSubSID.sid;
             const newUser = await usersModel.addUser(userInfo);

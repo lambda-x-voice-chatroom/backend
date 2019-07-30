@@ -1,6 +1,7 @@
 const admin = require('firebase-admin');
 const util = require('util');
 const router = require('express').Router();
+const stripe = require('stripe')(process.env.SK_TEST);
 const { getUserById, addUser } = require('../users/usersModel');
 
 router.get('/', async (req, res) => {
@@ -16,6 +17,13 @@ router.get('/', async (req, res) => {
                     data: user
                 });
             } else {
+                const stripeCustomerObject = await stripe.customers.create({
+                    email: firebaseUser.email
+                });
+                console.log('stripeCustomerObject: ', stripeCustomerObject);
+                stripeId = await stripeCustomerObject.id;
+                console.log('stripeID: ', stripeId);
+
                 const user = await addUser({
                     id: firebaseUser.uid,
                     displayName: firebaseUser.displayName,
