@@ -2,6 +2,10 @@ const admin = require('firebase-admin');
 const util = require('util');
 const router = require('express').Router();
 const stripe = require('stripe')(process.env.SK_TEST);
+const client = require('twilio')(
+    process.env.ACCOUNT_SID,
+    process.env.AUTH_TOKEN
+);
 const { getUserById, addUser } = require('../users/usersModel');
 
 router.get('/', async (req, res) => {
@@ -17,18 +21,24 @@ router.get('/', async (req, res) => {
                     data: user
                 });
             } else {
+                // Stripe
                 const stripeCustomerObject = await stripe.customers.create({
                     email: firebaseUser.email
                 });
-                console.log('stripeCustomerObject: ', stripeCustomerObject);
-                stripeId = await stripeCustomerObject.id;
-                console.log('stripeID: ', stripeId);
+                stripeId = stripeCustomerObject.id;
+
+                // Twilio
+                const twilioSubSID = await client.api.accounts.create({
+                    friendlyName: firebaseUser.email
+                });
 
                 const user = await addUser({
                     id: firebaseUser.uid,
                     displayName: firebaseUser.displayName,
                     email: firebaseUser.email,
-                    avatar: firebaseUser.photoURL
+                    avatar: firebaseUser.photoURL,
+                    stripeId: stripeId,
+                    twilioSubSID: twilioSubSID.sid
                 });
                 if (user != -1) {
                     res.status(201).json({

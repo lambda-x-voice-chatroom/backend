@@ -17,16 +17,18 @@ router.get('/', async (req, res) => {
         if (user) {
             res.status(200).json(user);
         } else {
-            const userInfo = {
-                displayName: res.locals.displayName,
-                email: res.locals.email,
-                avatar: res.locals.photoURL,
-                billingSubscription: 'free',
-                callStatus: false
-            };
+            res.status(404).json({ message: 'Unable to find user' });
+            // const userInfo = {
+            //     displayName: res.locals.displayName,
+            //     email: res.locals.email,
+            //     avatar: res.locals.photoURL,
+            //     billingSubscription: 'free',
+            //     callStatus: false
+            // };
             // console.log(userInfo);
             //const twilioSubSID = await client.api.accounts.create({
             //friendlyName: req.body.email});
+            //user.twilioSubSID = await twilioSubSID.sid;
 
             // const stripeCustomerObject = await stripe.customers.create({
             //     email: req.locals.email
@@ -34,10 +36,9 @@ router.get('/', async (req, res) => {
             // console.log(stripeCustomerObject);
             // userInfo.stripeId = await stripeCustomerObject.id;
 
-            //user.twilioSubSID = await twilioSubSID.sid;
-            const newUser = await usersModel.addUser(userInfo);
-            console.log(newUser);
-            res.status(201).json(newUser);
+            // const newUser = await usersModel.addUser(userInfo);
+            // console.log(newUser);
+            // res.status(201).json(newUser);
         }
     } catch (err) {
         res.status(500).json({ message: 'unable to create user', error: err });
