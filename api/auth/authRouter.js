@@ -25,19 +25,20 @@ router.get('/', async (req, res) => {
                 const stripeCustomerObject = await stripe.customers.create({
                     email: firebaseUser.email
                 });
-                stripeId = stripeCustomerObject.id;
+                console.log(stripeCustomerObject.id);
 
                 // Twilio
                 const twilioSubSID = await client.api.accounts.create({
                     friendlyName: firebaseUser.email
                 });
+                console.log(twilioSubSID.sid);
 
                 const user = await addUser({
                     id: firebaseUser.uid,
                     displayName: firebaseUser.displayName,
                     email: firebaseUser.email,
                     avatar: firebaseUser.photoURL,
-                    stripeId: stripeId,
+                    stripeId: stripeCustomerObject.id,
                     twilioSubSID: twilioSubSID.sid
                 });
                 if (user != -1) {
