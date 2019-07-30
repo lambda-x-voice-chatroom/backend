@@ -265,6 +265,7 @@ router.post('/updateCreditCard', async (req, res) => {
         const updatedUser = await updateUser(req.locals.uid, {
             last4: response.sources.data[0].card.last4
         });
+        console.log(updateduser);
 
         // if (updateSourceRes.error) {
         //     console.log('updatedSourceRes.error: ', updateSourceRes.error);

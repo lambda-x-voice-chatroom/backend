@@ -84,6 +84,7 @@ function getLast4(id) {
  * Returns update user
  */
 async function updateUser(id, changes) {
+    console.log('update user');
     await db('users')
         .where({ id })
         .update(changes);
@@ -91,7 +92,7 @@ async function updateUser(id, changes) {
     const user = await db('users')
         .where({ id })
         .first();
-
+    console.log('update user return ', user);
     return user;
 }
 
