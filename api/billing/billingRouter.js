@@ -278,7 +278,7 @@ router.post('/updateCreditCard', async (req, res) => {
 
         res.status(200).json({ message: 'Success', data: updatedUser });
     } catch (err) {
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message: 'Server error', data: err });
         // console.log('err: ', err);
         return err;
     }
