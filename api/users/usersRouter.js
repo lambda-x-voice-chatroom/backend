@@ -137,8 +137,9 @@ router.put('/:id/accountBalance', async (req, res) => {
     }
 });
 
-router.get('/:id/last4', async (req, res) => {
-    const id = req.params.id;
+// LAMBDA X IN USE
+router.get('/last4', async (req, res) => {
+    const id = res.locals.uid;
     try {
         const last4 = await usersModel.getLast4(id);
         res.status(200).json(last4);
@@ -147,8 +148,9 @@ router.get('/:id/last4', async (req, res) => {
     }
 });
 
-router.put('/:id/last4', async (req, res) => {
-    const id = req.params.id;
+// LAMBDA X IN USE
+router.put('/last4', async (req, res) => {
+    const id = res.locals.uid;
     const changes = req.body;
     try {
         await usersModel.updateUser(id, { ...req.body });

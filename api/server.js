@@ -22,6 +22,7 @@ server.use(
         exposedHeaders: ['Content-Length', 'Authorization', 'Accept']
     })
 );
+server.options('*', cors());
 // server.use(morgan('dev'));
 server.use(express.json());
 server.use('/api/auth', authRouter);
