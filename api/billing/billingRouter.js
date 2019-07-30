@@ -8,7 +8,6 @@ const client = require('twilio')(
     process.env.AUTH_TOKEN
 );
 const axios = require('axios');
-const { getUserById } = require('../users/usersModel');
 
 // api/billing
 
@@ -250,30 +249,47 @@ router.post('/userStripeCharges', async (req, res) => {
 // endpoint for updating a user's credit card (api/billingRouter/updateCreditCard)
 
 router.post('/updateCreditCard', async (req, res) => {
+    console.log('/updateCreditCard hit');
+    console.log('req.body: ', req.body);
     try {
+        // const host = 'http://localhost:3300';
+        console.log('req.body: ', req.body);
+        const host = 'https://intercom-be.herokuapp.com';
+        const userId = req.body.userId;
+        const getUserResponse = await axios.get(`${host}/api/users/${userId}`);
+        // console.log('getUserResponse.data: ',getUserResponse.data);
+        const userStripeId = getUserResponse.data.stripeId;
+        // console.log('userStripeId: ',userStripeId);
+
         // //step 1: Create the source on the front-end and send it here to the backend. Receive new source here.
         const sourceId = req.body.sourceId;
+        console.log('sourceId: ', sourceId);
 
-        // Step 2: Get user Stripe ID from DB
-        const user = getUserById(res.locals.uid);
-        console.log(user);
-        //step 3: update the default source associated with the customer on stripe's backend
-        // attach source to the customer object in stripe's backend
-        const response = await stripe.customers.update(user.stripeId, {
-            source: sourceId
-        });
-        console.log(response);
+        //step 2: update the default source associated with the customer on stripe's backend
 
-        // if (updateSourceRes.error) {
-        //     console.log('updatedSourceRes.error: ', updateSourceRes.error);
-        //     res.status(200).json({ updateSourceError: updateSourceRes.error });
-        // }
+        // Note: This should have been named updateCustomerRes since we're updating the source attached to the customer object on stripe's backend. Leaving it like this for now.
+        const updateSourceRes = await axios.post(
+            `${host}/api/billing/updateDefaultSource`,
+            {
+                userStripeId: userStripeId,
+                sourceId: sourceId
+            }
+        );
+        // console.log('updateSourceRes: ', updateSourceRes);
 
-        // Step 4: Update last 4 of card in user on DB via function not axios call
-        // const last4 = updateSourceRes.data.sources.data[0].card.last4.toString();
-        // await axios.put(`${host}/api/users/${userId}/last4`, { last4: last4 });
+        if (updateSourceRes.error) {
+            console.log('updatedSourceRes.error: ', updateSourceRes.error);
+            res.status(200).json({ updateSourceError: updateSourceRes.error });
+        }
 
-        res.status(200).json({ updatedSource: response });
+        const last4 = updateSourceRes.data.sources.data[0].card.last4.toString();
+        // console.log('newLast4: ', last4);
+        await axios.put(`${host}/api/users/${userId}/last4`, { last4: last4 });
+
+        const updatedSource = updateSourceRes.data.updatedSource;
+        console.log('updatedSource: ', updatedSource);
+        // return updatedSource;
+        res.status(200).json({ updatedSource: updatedSource });
     } catch (err) {
         // console.log('err: ', err);
         return err;
