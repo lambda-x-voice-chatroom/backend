@@ -263,8 +263,11 @@ router.post('/updateCreditCard', async (req, res) => {
         const response = await stripe.customers.update(user.stripeId, {
             source: sourceId
         });
-        console.log(response);
-
+        console.log(response.sources.data[0].card.last4);
+        await updateUser(req.locals.uid, {
+            last4: response.sources.data[0].card.last4
+        });
+        const updatedUser = await getUserById(res.locals.uid);
         // if (updateSourceRes.error) {
         //     console.log('updatedSourceRes.error: ', updateSourceRes.error);
         //     res.status(200).json({ updateSourceError: updateSourceRes.error });
@@ -274,7 +277,7 @@ router.post('/updateCreditCard', async (req, res) => {
         // const last4 = updateSourceRes.data.sources.data[0].card.last4.toString();
         // await axios.put(`${host}/api/users/${userId}/last4`, { last4: last4 });
 
-        res.status(200).json({ message: 'Success', data: response });
+        res.status(200).json({ message: 'Success', data: updatedUser });
     } catch (err) {
         res.status(500).json({ message: 'Server error' });
         // console.log('err: ', err);
