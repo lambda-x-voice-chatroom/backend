@@ -1,5 +1,5 @@
 {
-    "name": "LambdaX-VoiceChat-BE",
+    "name": "lambda-x-voicechat-be",
     "version": "1.0.0",
     "description": "Lambda X Voice Chat App",
     "main": "index.js",
