@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
         // const users = await usersModel.getUsers();
         const user = await usersModel.getUserById(res.locals.uid);
         if (user) {
-            res.status(200).json(user);
+            res.status(200).json({ message: 'Success', data: user });
         } else {
             res.status(404).json({ message: 'Unable to find user' });
             // const userInfo = {
