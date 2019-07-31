@@ -96,25 +96,29 @@ router.get('/:id', async (req, res) => {
         res.status(500).json(err);
     }
 });
-
-router.put('/:id', async (req, res) => {
-    const id = req.params.id;
+// Lambda X updated
+router.put('/', async (req, res) => {
+    const id = res.locals.uid;
     try {
         await usersModel.updateUser(id, { ...req.body });
         const updatedUser = await usersModel.getUserById(id);
-        res.status(200).json(updatedUser);
+        res.status(200).json({ message: 'Success', data: updatedUser });
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: 'Server Error', data: err });
     }
 });
 
-router.delete('/:id', async (req, res) => {
-    const id = req.params.id;
+// Lambda X updated
+router.delete('/', async (req, res) => {
+    const id = res.locals.uid;
     try {
         const count = await usersModel.deleteUser(id);
-        res.status(200).json({ count: `${count} user deleted` });
+        res.status(200).json({
+            message: 'Success',
+            data: `${count} user deleted`
+        });
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: 'Server Error', data: err });
     }
 });
 
