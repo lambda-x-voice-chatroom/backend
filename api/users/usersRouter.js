@@ -11,6 +11,7 @@ const userOwnedRouter = require('./userGroupsOwned/userOwnedRouter');
 // api/users
 
 router.get('/', async (req, res) => {
+    console.log('UID: ', res.locals.uid);
     try {
         // const users = await usersModel.getUsers();
         const user = await usersModel.getUserById(res.locals.uid);
