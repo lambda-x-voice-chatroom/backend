@@ -5,7 +5,9 @@ const localPgConnection = {
     user: process.env.USERNAME,
     password: process.env.PASSWORD
 };
-const prodDbConnection = localPgConnection;
+// const prodDbConnection = localPgConnection;
+const prodDbConnection = process.env.DATABASE_URL || localPgConnection;
+
 console.log(localPgConnection);
 module.exports = {
     development: {
