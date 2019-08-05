@@ -11,7 +11,7 @@ const { getUserById, addUser } = require('../users/usersModel');
 router.get('/', async (req, res) => {
     console.log('auth');
     const token = req.headers.authorization;
-    console.log(token);
+
     try {
         let decodedToken = await admin.auth().verifyIdToken(token);
         if (decodedToken) {

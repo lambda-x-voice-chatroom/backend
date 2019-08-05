@@ -30,10 +30,14 @@ module.exports = {
             .where('u.id', uid);
     },
 
-    addGroup: async function(group) {
-        const [id] = await db('groups').insert(group, 'id');
+    addGroup: async function(groupName, uid) {
+        const [id] = await db('groups').insert({ name: groupName }, ['id']);
+        await db('usersGroupsOwnership').insert({
+            userId: uid,
+            groupId: id.id
+        });
         return db('groups')
-            .where({ id })
+            .where('id', id.id)
             .first();
     },
 

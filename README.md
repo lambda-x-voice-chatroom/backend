@@ -15,28 +15,28 @@ To get the server running locally:
 
 #### Authentication Routes
 
-| Method | Endpoint          | Access Control | Description                                                   |
-| ------ | ----------------- | -------------- | ------------------------------------------------------------- |
-| GET    | [`/auth`](#/auth) | all users      | Returns user from database. Creates user if it doesn't exist. |
+| Method | Endpoint          | Access Control | Description                                                   | Completed |
+| ------ | ----------------- | -------------- | ------------------------------------------------------------- | :-------: |
+| GET    | [`/auth`](#/auth) | all users      | Returns user from database. Creates user if it doesn't exist. |     x     |
 
 #### User Routes
 
-| Method | Endpoint          | Access Control      | Description                 |
-| ------ | ----------------- | ------------------- | --------------------------- |
-| GET    | [`/user`](#/user) | Authorization Token | Returns user from database. |
-| PUT    | [`/user`](#/user) | Authorization Token | Updates user.               |
-| DELETE | [`/user`](#/user) | Authorization Token | Deletes user.               |
+| Method | Endpoint          | Access Control      | Description                 | Completed |
+| ------ | ----------------- | ------------------- | --------------------------- | :-------: |
+| GET    | [`/user`](#/user) | Authorization Token | Returns user from database. |     x     |
+| PUT    | [`/user`](#/user) | Authorization Token | Updates user.               |           |
+| DELETE | [`/user`](#/user) | Authorization Token | Deletes user.               |           |
 
 #### Group Routes
 
-| Method | Endpoint                                   | Access Control      | Description                                                     |
-| ------ | ------------------------------------------ | ------------------- | --------------------------------------------------------------- |
-| GET    | [`/groups`](#/groups)                      | Authorization Token | Returns all groups user is a part of.                           |
-| POST   | [`/groups`](#/groups)                      | Authorization Token | Creates a new group. Sets user as owner.                        |
-| GET    | [`/groups/:id`](#groups/id)                | Authorization Token | Returns specified group & members of the group.                 |
-| PUT    | [`/groups/:id`](#groups/:id)               | Authorization Token | Updates group name.                                             |
-| DELETE | [`/groups/:id`](#groups/:id)               | Authorization Token | Deletes the group.                                              |
-| POST   | [`/groups/:id/invite`](#groups/:id/invite) | Authorization Token | Invites users via email to a group. Send via an array of email? |
+| Method | Endpoint                                   | Access Control      | Description                                                     | Completed |
+| ------ | ------------------------------------------ | ------------------- | --------------------------------------------------------------- | :-------: |
+| GET    | [`/groups`](#/groups)                      | Authorization Token | Returns all groups user is a part of.                           |     x     |
+| POST   | [`/groups`](#/groups)                      | Authorization Token | Creates a new group. Sets user as owner.                        |           |
+| GET    | [`/groups/:id`](#groups/id)                | Authorization Token | Returns specified group & members of the group.                 |           |
+| PUT    | [`/groups/:id`](#groups/:id)               | Authorization Token | Updates group name.                                             |           |
+| DELETE | [`/groups/:id`](#groups/:id)               | Authorization Token | Deletes the group.                                              |           |
+| POST   | [`/groups/:id/invite`](#groups/:id/invite) | Authorization Token | Invites users via email to a group. Send via an array of email? |           |
 
 # Data Requests & Responses
 
@@ -137,50 +137,49 @@ To get the server running locally:
 
 ```
 {
-  "owned": [
-      {
-          "callStatus": false,
-          "groupId": 29,
-          "groupName": "Test Group"
-      },
-      {
-          "callStatus": false,
-          "groupId": 29,
-          "groupName": "Test Group"
-      }
-  ],
-  "belonged": [
-      {
-          "callStatus": false,
-          "groupId": 29,
-          "groupName": "Test Group"
-      },
-      {
-          "callStatus": false,
-          "groupId": 29,
-          "groupName": "Test Group"
-      }
-  ],
-  "invited": [
-      {
-          "callStatus": false,
-          "groupId": 29,
-          "groupName": "Test Group"
-      },
-      {
-          "callStatus": false,
-          "groupId": 29,
-          "groupName": "Test Group"
-      }
-  ]
+    "message": "success",
+    "data": {
+        "owned": [
+            { "id": 1, "name": "Group Test 1", "callStatus": false },
+            { "id": 7, "name": "Test", "callStatus": false },
+            { "id": 8, "name": "Test", "callStatus": false }
+        ],
+        "belonged": [
+            { "id": 12, "name": "Test", "callStatus": false }
+            { "id": 20, "name": "Test", "callStatus": false }
+            { "id": 34, "name": "Test", "callStatus": false }
+          ],
+        "invited": [
+            { "id": 4, "name": "Test", "callStatus": false }
+            { "id": 6, "name": "Test", "callStatus": false }
+            { "id": 27, "name": "Test", "callStatus": false }
+        ]
+    }
 }
 ```
 
 **Method:** POST
 
+### Request
+
 ```
 {
   groupName: 'Group Name'
+}
+```
+
+### Response
+
+Responds with newly created group.
+User is assigned as owner of new group.
+
+```
+{
+  callStatus: false
+  createdAt: "2019-08-05T22:58:59.633Z"
+  id: 9
+  name: "Test Group"
+  phoneNumber: null
 }
 ```
 

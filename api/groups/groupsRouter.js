@@ -23,9 +23,10 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    let group = req.body;
+    let { groupName } = req.body;
+    console.log(groupName);
     try {
-        const newGroup = await groupsModel.addGroup(group);
+        const newGroup = await groupsModel.addGroup(groupName, res.locals.uid);
         res.status(201).json(newGroup);
     } catch (err) {
         res.status(500).json(err);
