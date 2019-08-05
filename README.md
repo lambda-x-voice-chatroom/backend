@@ -25,14 +25,14 @@ To get the server running locally:
 | ------ | ----------------- | ------------------- | --------------------------- | :-------: |
 | GET    | [`/user`](#/user) | Authorization Token | Returns user from database. |     x     |
 | PUT    | [`/user`](#/user) | Authorization Token | Updates user.               |           |
-| DELETE | [`/user`](#/user) | Authorization Token | Deletes user.               |           |
+| DELETE | [`/user`](#/user) | Authorization Token | Deletes user.               |     x     |
 
 #### Group Routes
 
 | Method | Endpoint                                   | Access Control      | Description                                                     | Completed |
 | ------ | ------------------------------------------ | ------------------- | --------------------------------------------------------------- | :-------: |
 | GET    | [`/groups`](#/groups)                      | Authorization Token | Returns all groups user is a part of.                           |     x     |
-| POST   | [`/groups`](#/groups)                      | Authorization Token | Creates a new group. Sets user as owner.                        |           |
+| POST   | [`/groups`](#/groups)                      | Authorization Token | Creates a new group. Sets user as owner.                        |     x     |
 | GET    | [`/groups/:id`](#groups/id)                | Authorization Token | Returns specified group & members of the group.                 |           |
 | PUT    | [`/groups/:id`](#groups/:id)               | Authorization Token | Updates group name.                                             |           |
 | DELETE | [`/groups/:id`](#groups/:id)               | Authorization Token | Deletes the group.                                              |           |
