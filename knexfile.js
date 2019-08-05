@@ -1,51 +1,45 @@
 const localPgConnection = {
     host: 'localhost',
-    database: 'app',
-    user: 'admin',
-    password: 'password'
-  }
-  const prodDbConnection = process.env.DATABASE_URL || localPgConnection;
-
+    database: 'mike',
+    user: 'mike',
+    password: ''
+};
+const prodDbConnection = process.env.DATABASE_URL || localPgConnection;
 
 module.exports = {
+    development: {
+        client: 'pg',
+        connection: prodDbConnection,
+        migrations: {
+            directory: './data/migrations'
+        },
+        seeds: {
+            directory: './data/seeds'
+        }
+    },
 
-  development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './data/intercomAppDevelopmentDB.sqlite3'
+    testing: {
+        client: 'sqlite3',
+        connection: {
+            filename: './data/intercomAppTestDB.sqlite3'
+        },
+        useNullAsDefault: true,
+        migrations: {
+            directory: './data/migrations'
+        },
+        seeds: {
+            directory: './data/seeds'
+        }
     },
-    useNullAsDefault: true,
-    migrations: { 
-      directory: './data/migrations'
-    },
-    seeds: { 
-      directory: './data/seeds'
+
+    production: {
+        client: 'pg',
+        connection: prodDbConnection,
+        migrations: {
+            directory: './data/migrations'
+        },
+        seeds: {
+            directory: './data/seeds'
+        }
     }
-  },
-
-  testing: {
-    client: 'sqlite3',
-    connection: {
-      filename: './data/intercomAppTestDB.sqlite3',
-    },
-    useNullAsDefault: true,
-    migrations: {
-      directory: './data/migrations',
-    },
-    seeds: {
-      directory: './data/seeds',
-    },
-  },
-
-  production: {
-    client: 'pg',
-    connection: prodDbConnection,
-    migrations: {
-      directory: './data/migrations',
-    },
-    seeds: {
-      directory: './data/seeds',
-    },
-  }
-
 };
