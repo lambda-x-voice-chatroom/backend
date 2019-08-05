@@ -11,32 +11,35 @@ const userOwnedRouter = require('./userGroupsOwned/userOwnedRouter');
 // api/users
 
 router.get('/', async (req, res) => {
+    console.log('UID: ', res.locals.uid);
     try {
         // const users = await usersModel.getUsers();
         const user = await usersModel.getUserById(res.locals.uid);
         if (user) {
-            res.status(200).json(user);
+            res.status(200).json({ message: 'Success', data: user });
         } else {
-            const userInfo = {
-                displayName: res.locals.displayName,
-                email: res.locals.email,
-                avatar: res.locals.photoURL,
-                billingSubscription: 'free',
-                callStatus: false
-            };
+            res.status(404).json({ message: 'Unable to find user' });
+            // const userInfo = {
+            //     displayName: res.locals.displayName,
+            //     email: res.locals.email,
+            //     avatar: res.locals.photoURL,
+            //     billingSubscription: 'free',
+            //     callStatus: false
+            // };
             // console.log(userInfo);
-            // const stripeCustomerObject = await stripe.customers.create({
-            //     email: req.body.email
-            // });
             //const twilioSubSID = await client.api.accounts.create({
             //friendlyName: req.body.email});
+            //user.twilioSubSID = await twilioSubSID.sid;
 
+            // const stripeCustomerObject = await stripe.customers.create({
+            //     email: req.locals.email
+            // });
+            // console.log(stripeCustomerObject);
             // userInfo.stripeId = await stripeCustomerObject.id;
 
-            //user.twilioSubSID = await twilioSubSID.sid;
-            const newUser = await usersModel.addUser(userInfo);
-            console.log(newUser);
-            res.status(201).json(newUser);
+            // const newUser = await usersModel.addUser(userInfo);
+            // console.log(newUser);
+            // res.status(201).json(newUser);
         }
     } catch (err) {
         res.status(500).json({ message: 'unable to create user', error: err });
@@ -93,25 +96,29 @@ router.get('/:id', async (req, res) => {
         res.status(500).json(err);
     }
 });
-
-router.put('/:id', async (req, res) => {
-    const id = req.params.id;
+// Lambda X updated
+router.put('/', async (req, res) => {
+    const id = res.locals.uid;
     try {
         await usersModel.updateUser(id, { ...req.body });
         const updatedUser = await usersModel.getUserById(id);
-        res.status(200).json(updatedUser);
+        res.status(200).json({ message: 'Success', data: updatedUser });
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: 'Server Error', data: err });
     }
 });
 
-router.delete('/:id', async (req, res) => {
-    const id = req.params.id;
+// Lambda X updated
+router.delete('/', async (req, res) => {
+    const id = res.locals.uid;
     try {
         const count = await usersModel.deleteUser(id);
-        res.status(200).json({ count: `${count} user deleted` });
+        res.status(200).json({
+            message: 'Success',
+            data: `${count} user deleted`
+        });
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({ message: 'Server Error', data: err });
     }
 });
 

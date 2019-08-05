@@ -1,19 +1,16 @@
 require('dotenv').config();
 const localPgConnection = {
-    host: process.env.HOST,
-    database: process.env.DATABASE,
-    user: process.env.USERNAME,
-    password: process.env.PASSWORD
+    host: 'localhost',
+    database: 'mike',
+    user: 'mike',
+    password: ''
 };
-const prodDbConnection = localPgConnection;
-console.log(localPgConnection);
+const prodDbConnection = process.env.DATABASE_URL || localPgConnection;
+
 module.exports = {
     development: {
-        client: 'sqlite3',
-        connection: {
-            filename: './data/intercomAppDevelopmentDB.sqlite3'
-        },
-        useNullAsDefault: true,
+        client: 'pg',
+        connection: prodDbConnection,
         migrations: {
             directory: './data/migrations'
         },

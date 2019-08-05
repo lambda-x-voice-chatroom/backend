@@ -80,12 +80,20 @@ function getLast4(id) {
  *
  * @param {string} id
  * @param {object} changes
+ *
+ * Returns update user
  */
-function updateUser(id, changes) {
-    return db('users')
+async function updateUser(id, changes) {
+    console.log('update user');
+    await db('users')
         .where({ id })
-        .update(changes)
-        .then(count => (count > 0 ? this.getUserById(id) : null));
+        .update(changes);
+
+    const user = await db('users')
+        .where({ id })
+        .first();
+    console.log('update user return ', user);
+    return user;
 }
 
 /**

@@ -12,8 +12,11 @@ const groupCallParticipants = require('./groupCallParticipants/groupCallParticip
 // api/groups - Get all groups for user
 router.get('/', async (req, res) => {
     try {
-        const groups = await groupsModel.getAllGroups();
-        res.status(200).json({ message: 'success', data: groups });
+        const owned = await groupsModel.getOwnedGroups(res.locals.uid);
+        const belonged = await groupsModel.getBelongedGroups(res.locals.uid);
+        const invited = await groupsModel.getInvitedGroups(res.locals.uid);
+        let data = { owned: owned, belonged: belonged, invited: invited };
+        res.status(200).json({ message: 'success', data: data });
     } catch (err) {
         res.status(500).json(err);
     }
