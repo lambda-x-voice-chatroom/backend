@@ -1,6 +1,7 @@
 const db = require('../../../data/dbConfig.js');
 
 module.exports = {
+    // Used by Lambda X
     getGroupOwners: function(groupId) {
         return db('usersGroupsOwnership')
             .select(

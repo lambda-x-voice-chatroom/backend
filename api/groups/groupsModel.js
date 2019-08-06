@@ -40,8 +40,9 @@ module.exports = {
             .where('id', id.id)
             .first();
     },
-
+    // Used by Lambda X
     getGroupByID: async function(id, uid) {
+        // Checks usersGroupsMembership table for matching group that the user is a part of
         let member = await db('groups as g')
             .select(
                 'g.id',
@@ -53,6 +54,7 @@ module.exports = {
             .innerJoin('usersGroupsMembership as m', 'g.id', 'm.groupId')
             .where('groupId', id)
             .where('m.userId', uid);
+        // Checks usersGroupsOwnership table for matching group that the user is a part of
         let owner = await db('groups as g')
             .select(
                 'g.id',
