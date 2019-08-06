@@ -1,8 +1,8 @@
 # API Documentation
 
-#### 1️⃣ Backend delpoyed at [Lambda Voice Chat Backend](https://lambda-voice-chat.herokuapp.com/) <br>
+#### Backend delpoyed at [Lambda Voice Chat Backend](https://lambda-voice-chat.herokuapp.com/) <br>
 
-## 1️⃣ Getting started
+## Getting started
 
 To get the server running locally:
 
@@ -11,93 +11,258 @@ To get the server running locally:
 -   **yarn server** to start the local server
 -   **yarn test** to start server using testing environment
 
-### Backend framework goes here
+## Endpoints
 
--   Backend built using Node and Express
+#### Authentication Routes
 
-## 2️⃣ Endpoints
-
-#### Organization Routes
-
-| Method | Endpoint                | Access Control | Description                                  |
-| ------ | ----------------------- | -------------- | -------------------------------------------- |
-| GET    | `/organizations/:orgId` | all users      | Returns the information for an organization. |
-| PUT    | `/organizatoins/:orgId` | owners         | Modify an existing organization.             |
-| DELETE | `/organizations/:orgId` | owners         | Delete an organization.                      |
+| Method | Endpoint          | Access Control | Description                                                   | Completed |
+| ------ | ----------------- | -------------- | ------------------------------------------------------------- | :-------: |
+| GET    | [`/auth`](#/auth) | all users      | Returns user from database. Creates user if it doesn't exist. |     x     |
 
 #### User Routes
 
-| Method | Endpoint                | Access Control      | Description                                        |
-| ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| GET    | `/users/current`        | all users           | Returns info for the logged in user.               |
-| GET    | `/users/org/:userId`    | owners, supervisors | Returns all users for an organization.             |
-| GET    | `/users/:userId`        | owners, supervisors | Returns info for a single user.                    |
-| POST   | `/users/register/owner` | none                | Creates a new user as owner of a new organization. |
-| PUT    | `/users/:userId`        | owners, supervisors |                                                    |
-| DELETE | `/users/:userId`        | owners, supervisors |                                                    |
+| Method | Endpoint          | Access Control      | Description                 | Completed |
+| ------ | ----------------- | ------------------- | --------------------------- | :-------: |
+| GET    | [`/user`](#/user) | Authorization Token | Returns user from database. |     x     |
+| PUT    | [`/user`](#/user) | Authorization Token | Updates user.               |           |
+| DELETE | [`/user`](#/user) | Authorization Token | Deletes user.               |     x     |
 
-# Data Model
+#### Group Routes
 
-#### 2️⃣ ORGANIZATIONS
+| Method | Endpoint                                   | Access Control      | Description                                                     | Completed |
+| ------ | ------------------------------------------ | ------------------- | --------------------------------------------------------------- | :-------: |
+| GET    | [`/groups`](#/groups)                      | Authorization Token | Returns all groups user is a part of.                           |     x     |
+| POST   | [`/groups`](#/groups)                      | Authorization Token | Creates a new group. Sets user as owner.                        |     x     |
+| GET    | [`/groups/:id`](#groups/id)                | Authorization Token | Returns specified group & members of the group.                 |     x     |
+| PUT    | [`/groups/:id`](#groups/:id)               | Authorization Token | Updates group name.                                             |           |
+| DELETE | [`/groups/:id`](#groups/:id)               | Authorization Token | Deletes the group.                                              |           |
+| POST   | [`/groups/:id/invite`](#groups/:id/invite) | Authorization Token | Invites users via email to a group. Send via an array of email? |           |
 
----
+# Data Requests & Responses
 
-```
-{
-  id: UUID
-  name: STRING
-  industry: STRING
-  paid: BOOLEAN
-  customer_id: STRING
-  subscription_id: STRING
-}
-```
+## Authentication Routes
 
-#### USERS
+### `/auth`
 
----
+**Method:** GET
 
 ```
 {
-  id: UUID
-  organization_id: UUID foreign key in ORGANIZATIONS table
-  first_name: STRING
-  last_name: STRING
-  role: STRING [ 'owner', 'supervisor', 'employee' ]
-  email: STRING
-  phone: STRING
-  cal_visit: BOOLEAN
-  emp_visit: BOOLEAN
-  emailpref: BOOLEAN
-  phonepref: BOOLEAN
+  data: {
+    accountBalance: "0.00"
+    avatar: "https://lh6.googleusercontent.com/-iHzxfFM_-68/AAAAAAAAAAI/AAAAAAAAAa0/C3lvNfpLzFE/photo.jpg"
+    billingSubscription: "free"
+    callStatus: false
+    createdAt: "2019-07-26T22:27:50.057Z"
+    displayName: "Michael Landers"
+    email: "landers.mike@gmail.com"
+    firstName: null
+    id: "Ufr9cfSwbDXKfmAWSGiBzs831Zi1"
+    last4: null
+    lastName: null
+    phoneNumber: null
+    stripeId: null
+  }
+  message: "success"
 }
 ```
 
-## 2️⃣ Actions
+## User Routes
 
-`getOrgs()` -> Returns all organizations
+### `/user`
 
-`getOrg(orgId)` -> Returns a single organization by ID
+**Method:** GET
 
-`addOrg(org)` -> Returns the created org
+```
+{
+  data: {
+    accountBalance: "0.00"
+    avatar: "https://lh6.googleusercontent.com/-iHzxfFM_-68/AAAAAAAAAAI/AAAAAAAAAa0/C3lvNfpLzFE/photo.jpg"
+    billingSubscription: "free"
+    callStatus: false
+    createdAt: "2019-07-26T22:27:50.057Z"
+    displayName: "Michael Landers"
+    email: "landers.mike@gmail.com"
+    firstName: null
+    id: "Ufr9cfSwbDXKfmAWSGiBzs831Zi1"
+    last4: null
+    lastName: null
+    phoneNumber: null
+    stripeId: null
+  }
+  message: "success"
+}
+```
 
-`updateOrg(orgId)` -> Update an organization by ID
+**Method:** PUT
 
-`deleteOrg(orgId)` -> Delete an organization by ID
+### Request
+
+```
+{
+  name: 'Jane Doe',
+}
+```
+
+### Response
+
+```
+{
+  data: {
+    accountBalance: "0.00"
+    avatar: "https://lh6.googleusercontent.com/-iHzxfFM_-68/AAAAAAAAAAI/AAAAAAAAAa0/C3lvNfpLzFE/photo.jpg"
+    billingSubscription: "free"
+    callStatus: false
+    createdAt: "2019-07-26T22:27:50.057Z"
+    displayName: "Michael Landers"
+    email: "landers.mike@gmail.com"
+    firstName: null
+    id: "Ufr9cfSwbDXKfmAWSGiBzs831Zi1"
+    last4: null
+    lastName: null
+    phoneNumber: null
+    stripeId: null
+  }
+  message: "success"
+}
+```
+
+**Method:** DELETE
+
+## Group Routes
+
+### `/groups`
+
+**Method:** GET
+
+```
+{
+    "message": "success",
+    "data": {
+        "owned": [
+            { "id": 1, "name": "Group Test 1", "callStatus": false },
+            { "id": 7, "name": "Test", "callStatus": false },
+            { "id": 8, "name": "Test", "callStatus": false }
+        ],
+        "belonged": [
+            { "id": 12, "name": "Test", "callStatus": false }
+            { "id": 20, "name": "Test", "callStatus": false }
+            { "id": 34, "name": "Test", "callStatus": false }
+          ],
+        "invited": [
+            { "id": 4, "name": "Test", "callStatus": false }
+            { "id": 6, "name": "Test", "callStatus": false }
+            { "id": 27, "name": "Test", "callStatus": false }
+        ]
+    }
+}
+```
+
+**Method:** POST
+
+### Request
+
+```
+{
+  groupName: 'Group Name'
+}
+```
+
+### Response
+
+Responds with newly created group.
+User is assigned as owner of new group.
+
+```
+{
+  callStatus: false
+  createdAt: "2019-08-05T22:58:59.633Z"
+  id: 9
+  name: "Test Group"
+  phoneNumber: null
+}
+```
+
+### `/groups/:id`
+
+**Method:** GET
+
+### Response
+
+````
+{
+  "message": "success",
+  "data": {
+    "group": {
+      "id": 1,
+      "name": "Group Test 1",
+      "phoneNumber": null,
+      "callStatus": false,
+      "createdAt": "2019-08-05T20:52:52.109Z"
+    },
+    "members": [],
+    "owner": [
+      {
+        "groupId": 1,
+        "displayName": "Michael Landers",
+        "email": "landers.mike@gmail.com"
+      }
+    ]
+  }
+}```
+
+### `/groups/:id`
+
+**Method:** PUT
+
+````
+
+{
+groupName: 'Group Name'
+}
+
+```
+
+**Method:** DELETE
+
+### `/groups/:id/invite`
+
+**Method:** POST
+
+```
+
+{
+
+}
+
+```
+
+<!--
+## Actions
+
+`getOrgs()` - Returns all organizations
+
+`getOrg(orgId)` - Returns a single organization by ID
+
+`addOrg(org)` - Returns the created org
+
+`updateOrg(orgId)` - Update an organization by ID
+
+`deleteOrg(orgId)` - Delete an organization by ID
 <br>
 <br>
 <br>
-`getUsers(orgId)` -> if no param all users
+`getUsers(orgId)` - if no param all users
 
-`getUser(userId)` -> Returns a single user by user ID
+`getUser(userId)` - Returns a single user by user ID
 
-`addUser(user object)` --> Creates a new user and returns that user. Also creates 7 availabilities defaulted to hours of operation for their organization.
+`addUser(user object)` - Creates a new user and returns that user. Also creates 7 availabilities defaulted to hours of operation for their organization.
 
-`updateUser(userId, changes object)` -> Updates a single user by ID.
+`updateUser(userId, changes object)` - Updates a single user by ID.
 
-`deleteUser(userId)` -> deletes everything dependent on the user
+`deleteUser(userId)` - deletes everything dependent on the user -->
 
-## 3️⃣ Environment Variables
+## Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables.
 
@@ -152,3 +317,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 See [Frontend Documentation](https://github.com/lambda-x-voice-chatroom/frontend)
 See [Android Documentation](https://github.com/lambda-x-voice-chatroom/android)
+```

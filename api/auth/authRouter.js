@@ -9,8 +9,8 @@ const client = require('twilio')(
 const { getUserById, addUser } = require('../users/usersModel');
 
 router.get('/', async (req, res) => {
-    console.log('auth');
     const token = req.headers.authorization;
+
     try {
         let decodedToken = await admin.auth().verifyIdToken(token);
         if (decodedToken) {

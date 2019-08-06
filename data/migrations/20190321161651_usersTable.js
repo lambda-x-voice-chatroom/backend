@@ -36,7 +36,7 @@ exports.up = function(knex, Promise) {
             .notNullable();
 
         //user billing subscription
-        tbl.string('billingSubcription', 128)
+        tbl.string('billingSubscription', 128)
             .defaultTo('free')
             .notNullable();
 
