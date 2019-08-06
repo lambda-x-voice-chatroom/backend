@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const groupsModel = require('./groupsModel');
 const { getGroupOwners } = require('./groupOwners/groupOwnersModel');
-const { getGroupMembers } = require('./groupMembers/groupmembersModel');
+const { getGroupMembers } = require('./groupMembers/groupMembersModel');
 
 const groupMembersRouter = require('./groupMembers/groupMembersRouter');
 const groupOwnersRouter = require('./groupOwners/groupOwnersRouter');
