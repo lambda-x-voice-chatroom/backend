@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
 const groupsModel = require('./groupsModel');
-const groupOwnersModel = require('./groupOwners/groupOwnersModel');
-const groupMembersModel = require('./groupMembers/groupmembersModel');
+const { getGroupOwners } = require('./groupOwners/groupOwnersModel');
+const { getGroupMembers } = require('./groupMembers/groupmembersModel');
 
 const groupMembersRouter = require('./groupMembers/groupMembersRouter');
 const groupOwnersRouter = require('./groupOwners/groupOwnersRouter');
@@ -42,9 +42,9 @@ router.get('/:id', async (req, res) => {
     try {
         const group = await groupsModel.getGroupByID(id, res.locals.uid);
         console.log('group', group);
-        const groupOwner = await groupOwnersModel.getGroupOwners(id);
+        const groupOwner = await getGroupOwners(id);
         console.log('owner', groupOwner);
-        const groupMembers = await groupMembersModel.getGroupMembers(id);
+        const groupMembers = await getGroupMembers(id);
         console.log('members', groupMembers);
 
         res.status(200).json({
