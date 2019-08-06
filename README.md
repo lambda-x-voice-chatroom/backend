@@ -33,7 +33,7 @@ To get the server running locally:
 | ------ | ------------------------------------------ | ------------------- | --------------------------------------------------------------- | :-------: |
 | GET    | [`/groups`](#/groups)                      | Authorization Token | Returns all groups user is a part of.                           |     x     |
 | POST   | [`/groups`](#/groups)                      | Authorization Token | Creates a new group. Sets user as owner.                        |     x     |
-| GET    | [`/groups/:id`](#groups/id)                | Authorization Token | Returns specified group & members of the group.                 |           |
+| GET    | [`/groups/:id`](#groups/id)                | Authorization Token | Returns specified group & members of the group.                 |     x     |
 | PUT    | [`/groups/:id`](#groups/:id)               | Authorization Token | Updates group name.                                             |           |
 | DELETE | [`/groups/:id`](#groups/:id)               | Authorization Token | Deletes the group.                                              |           |
 | POST   | [`/groups/:id/invite`](#groups/:id/invite) | Authorization Token | Invites users via email to a group. Send via an array of email? |           |
@@ -187,20 +187,40 @@ User is assigned as owner of new group.
 
 **Method:** GET
 
-```
-{
+### Response
 
-}
-```
+````
+{
+  "message": "success",
+  "data": {
+    "group": {
+      "id": 1,
+      "name": "Group Test 1",
+      "phoneNumber": null,
+      "callStatus": false,
+      "createdAt": "2019-08-05T20:52:52.109Z"
+    },
+    "members": [],
+    "owner": [
+      {
+        "groupId": 1,
+        "displayName": "Michael Landers",
+        "email": "landers.mike@gmail.com"
+      }
+    ]
+  }
+}```
 
 ### `/groups/:id`
 
 **Method:** PUT
 
-```
+````
+
 {
-  groupName: 'Group Name'
+groupName: 'Group Name'
 }
+
 ```
 
 **Method:** DELETE
@@ -210,9 +230,11 @@ User is assigned as owner of new group.
 **Method:** POST
 
 ```
+
 {
 
 }
+
 ```
 
 <!--
@@ -295,3 +317,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 See [Frontend Documentation](https://github.com/lambda-x-voice-chatroom/frontend)
 See [Android Documentation](https://github.com/lambda-x-voice-chatroom/android)
+```

@@ -1,28 +1,16 @@
 const db = require('../../../data/dbConfig.js');
 
 module.exports = {
-    getGroupOwners: function(userID) {
+    getGroupOwners: function(groupId) {
         return db('usersGroupsOwnership')
             .select(
                 'usersGroupsOwnership.groupId',
-                'usersGroupsOwnership.userId',
-                'users.displayName'
+                'users.displayName',
+                'users.email'
             )
-            .where({ userID })
+            .where({ groupId })
             .join('users', 'usersGroupsOwnership.userId', 'users.id');
     },
-    // getGroupOwners: function(groupId) {
-
-    //     return db('usersGroupsOwnership')
-    //         .select(
-    //             'usersGroupsOwnership.groupId',
-    //             'usersGroupsOwnership.userId',
-    //             'users.displayName',
-    //         )
-    //         .where({ groupId })
-    //         .join('users', 'usersGroupsOwnership.userId', 'users.id')
-
-    // },
 
     getGroupOwnersDetailed: function(groupId) {
         return db('usersGroupsOwnership')

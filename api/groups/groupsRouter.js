@@ -1,6 +1,8 @@
 const router = require('express').Router();
 
 const groupsModel = require('./groupsModel');
+const groupOwnersModel = require('./groupOwners/groupOwnersModel');
+const groupMembersModel = require('./groupMembers/groupmembersModel');
 
 const groupMembersRouter = require('./groupMembers/groupMembersRouter');
 const groupOwnersRouter = require('./groupOwners/groupOwnersRouter');
@@ -24,7 +26,6 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     let { groupName } = req.body;
-    console.log(groupName);
     try {
         const newGroup = await groupsModel.addGroup(groupName, res.locals.uid);
         res.status(201).json(newGroup);
@@ -37,9 +38,19 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
+    console.log(id);
     try {
-        const group = await groupsModel.getGroupByID(id);
-        res.status(200).json(group);
+        const group = await groupsModel.getGroupByID(id, res.locals.uid);
+        console.log('group', group);
+        const groupOwner = await groupOwnersModel.getGroupOwners(id);
+        console.log('owner', groupOwner);
+        const groupMembers = await groupMembersModel.getGroupMembers(id);
+        console.log('members', groupMembers);
+
+        res.status(200).json({
+            message: 'success',
+            data: { group: group, members: groupMembers, owner: groupOwner }
+        });
     } catch (err) {
         res.status(500).json(err);
     }
