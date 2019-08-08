@@ -22,12 +22,21 @@ module.exports = {
             .where('u.id', uid);
     },
     // Used by Lambda X
-    getInvitedGroups: function(uid) {
-        return db('users as u')
-            .select('g.id', 'g.name', 'g.callStatus')
+    getInvitedGroups: async function(uid) {
+        let invited = await db('users as u')
+            .select(
+                'g.id',
+                'g.name',
+                'g.callStatus',
+                'owners.displayName as owner'
+            )
             .innerJoin('usersGroupsInvitations as i', 'u.id', 'i.userId')
             .innerJoin('groups as g', 'i.groupId', 'g.id')
-            .where('u.id', uid);
+            .join('usersGroupsOwnership as o', 'i.groupId', 'o.groupId')
+            .where('u.id', uid)
+            .join('users as owners', 'o.userId', 'owners.id');
+
+        return invited;
     },
     // Used by Lambda X
     addGroup: async function(groupName, uid) {
