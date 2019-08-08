@@ -1,2 +1,2 @@
 INSERT INTO public."usersGroupsInvitations" ("userId", "groupId")
-VALUES ('Gl8yjukc4YfvYlSOdIZrnCXTcrm1' , 1)
+VALUES ('Ufr9cfSwbDXKfmAWSGiBzs831Zi1' , 11)
