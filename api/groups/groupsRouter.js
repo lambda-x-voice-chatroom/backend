@@ -38,14 +38,10 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
-    console.log(id);
     try {
         const group = await groupsModel.getGroupByID(id, res.locals.uid);
-        console.log('group', group);
         const groupOwner = await getGroupOwners(id);
-        console.log('owner', groupOwner);
         const groupMembers = await getGroupMembers(id);
-        console.log('members', groupMembers);
 
         res.status(200).json({
             message: 'success',

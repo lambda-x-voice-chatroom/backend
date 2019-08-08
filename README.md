@@ -142,17 +142,19 @@ To get the server running locally:
         "owned": [
             { "id": 1, "name": "Group Test 1", "callStatus": false },
             { "id": 7, "name": "Test", "callStatus": false },
-            { "id": 8, "name": "Test", "callStatus": false }
+            { "id": 8, "name": "Test", "callStatus": false },
+            { "id": 9, "name": "Test Group", "callStatus": false }
         ],
         "belonged": [
-            { "id": 12, "name": "Test", "callStatus": false }
-            { "id": 20, "name": "Test", "callStatus": false }
-            { "id": 34, "name": "Test", "callStatus": false }
-          ],
+            { "id": 10, "name": "member of Group 1", "callStatus": false }
+        ],
         "invited": [
-            { "id": 4, "name": "Test", "callStatus": false }
-            { "id": 6, "name": "Test", "callStatus": false }
-            { "id": 27, "name": "Test", "callStatus": false }
+            {
+                "id": 11,
+                "name": "invite Test 1",
+                "callStatus": false,
+                "owner": "Jacob Seppanen"
+            }
         ]
     }
 }

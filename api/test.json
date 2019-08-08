@@ -1,38 +1,22 @@
 {
-    "owned": [
-        {
-            "callStatus": false,
-            "groupId": 29,
-            "groupName": "Test Group"
-        },
-        {
-            "callStatus": false,
-            "groupId": 29,
-            "groupName": "Test Group"
-        }
-    ],
-    "belonged": [
-        {
-            "callStatus": false,
-            "groupId": 29,
-            "groupName": "Test Group"
-        },
-        {
-            "callStatus": false,
-            "groupId": 29,
-            "groupName": "Test Group"
-        }
-    ],
-    "invited": [
-        {
-            "callStatus": false,
-            "groupId": 29,
-            "groupName": "Test Group"
-        },
-        {
-            "callStatus": false,
-            "groupId": 29,
-            "groupName": "Test Group"
-        }
-    ]
+    "message": "success",
+    "data": {
+        "owned": [
+            { "id": 1, "name": "Group Test 1", "callStatus": false },
+            { "id": 7, "name": "Test", "callStatus": false },
+            { "id": 8, "name": "Test", "callStatus": false },
+            { "id": 9, "name": "Test Group", "callStatus": false }
+        ],
+        "belonged": [
+            { "id": 10, "name": "member of Group 1", "callStatus": false }
+        ],
+        "invited": [
+            {
+                "id": 11,
+                "name": "invite Test 1",
+                "callStatus": false,
+                "owner": "Jacob Seppanen"
+            }
+        ]
+    }
 }
