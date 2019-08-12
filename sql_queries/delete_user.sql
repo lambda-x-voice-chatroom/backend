@@ -1,0 +1,1 @@
+delete from public.users where id = 'SAa6Xxzw2hUnnS1DmFs4YyhktNI3'

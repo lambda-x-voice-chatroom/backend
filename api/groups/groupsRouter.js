@@ -1,6 +1,8 @@
 const router = require('express').Router();
 
 const groupsModel = require('./groupsModel');
+const { getGroupOwners } = require('./groupOwners/groupOwnersModel');
+const { getGroupMembers } = require('./groupMembers/groupMembersModel');
 
 const groupMembersRouter = require('./groupMembers/groupMembersRouter');
 const groupOwnersRouter = require('./groupOwners/groupOwnersRouter');
@@ -9,20 +11,23 @@ const groupActivitiesRouter = require('./groupActivities/groupActivitiesRouter')
 const groupCallStatusRouter = require('./groupCallStatus/groupCallStatusRouter');
 const groupCallParticipants = require('./groupCallParticipants/groupCallParticipantsRouter');
 
-// api/groups
+// api/groups - Get all groups for user
 router.get('/', async (req, res) => {
     try {
-        const groups = await groupsModel.getAllGroups();
-        res.status(200).json({ message: 'success', data: groups });
+        const owned = await groupsModel.getOwnedGroups(res.locals.uid);
+        const belonged = await groupsModel.getBelongedGroups(res.locals.uid);
+        const invited = await groupsModel.getInvitedGroups(res.locals.uid);
+        let data = { owned: owned, belonged: belonged, invited: invited };
+        res.status(200).json({ message: 'success', data: data });
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
 router.post('/', async (req, res) => {
-    let group = req.body;
+    let { groupName } = req.body;
     try {
-        const newGroup = await groupsModel.addGroup(group);
+        const newGroup = await groupsModel.addGroup(groupName, res.locals.uid);
         res.status(201).json(newGroup);
     } catch (err) {
         res.status(500).json(err);
@@ -34,8 +39,14 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        const group = await groupsModel.getGroupByID(id);
-        res.status(200).json(group);
+        const group = await groupsModel.getGroupByID(id, res.locals.uid);
+        const groupOwner = await getGroupOwners(id);
+        const groupMembers = await getGroupMembers(id);
+
+        res.status(200).json({
+            message: 'success',
+            data: { group: group, members: groupMembers, owner: groupOwner[0] }
+        });
     } catch (err) {
         res.status(500).json(err);
     }

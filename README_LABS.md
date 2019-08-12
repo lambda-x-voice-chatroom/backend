@@ -138,7 +138,7 @@ Table: `users`
 | phoneNumber        | integer(9)    | -  | -      | -        | -           |
 | callStatus         | boolean       | -  | -      | +        | *false*     |
 | stripeId           | varchar(128)  | -  | -      | -        | *null*      |
-| billingSubcription | varchar(128)  | -  | -      | +        | 'free'      |
+| billingSubscription | varchar(128)  | -  | -      | +        | 'free'      |
 | accountBalance     | decimal(4,2)  | -  | -      | -        | 0           |
 | last4              | varchar(4)    | -  | -      | -        | *null*      |
 | createdAt          | timestamp     | -  | -      | -        | knex.fn(now)|
