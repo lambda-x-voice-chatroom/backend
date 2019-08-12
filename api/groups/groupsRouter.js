@@ -45,7 +45,7 @@ router.get('/:id', async (req, res) => {
 
         res.status(200).json({
             message: 'success',
-            data: { group: group, members: groupMembers, owner: groupOwner }
+            data: { group: group, members: groupMembers, owner: groupOwner[0] }
         });
     } catch (err) {
         res.status(500).json(err);

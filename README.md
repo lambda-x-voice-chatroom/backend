@@ -203,13 +203,11 @@ User is assigned as owner of new group.
       "createdAt": "2019-08-05T20:52:52.109Z"
     },
     "members": [],
-    "owner": [
-      {
+    "owner": {
         "groupId": 1,
         "displayName": "Michael Landers",
         "email": "landers.mike@gmail.com"
       }
-    ]
   }
 }```
 
