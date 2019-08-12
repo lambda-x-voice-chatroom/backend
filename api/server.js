@@ -8,7 +8,7 @@ const auth = require('./middleware/auth');
 
 const authRouter = require('./auth/authRouter');
 const groupRouter = require('./groups/groupsRouter');
-// const usersRouter = require('./users/usersRouter');
+const usersRouter = require('./users/usersRouter');
 // const teamRouter = require('./team/teamRouter');
 // const voiceRouter = require('./voice/voiceRouter');
 // const uploadRouter = require('./upload/uploadRouter');
@@ -31,7 +31,7 @@ server.use(auth);
 // Routes
 server.use('/api/groups', groupRouter);
 // server.use('/api/team', teamRouter);
-// server.use('/api/users', usersRouter);
+server.use('/api/users', usersRouter);
 // server.use('/api/voice', voiceRouter);
 // server.use('/api/upload', uploadRouter);
 // server.use('/api/billing', billingRouter);
