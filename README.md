@@ -29,14 +29,14 @@ To get the server running locally:
 
 #### Group Routes
 
-| Method | Endpoint                                   | Access Control      | Description                                                     | Completed |
-| ------ | ------------------------------------------ | ------------------- | --------------------------------------------------------------- | :-------: |
-| GET    | [`/groups`](#/groups)                      | Authorization Token | Returns all groups user is a part of.                           |     x     |
-| POST   | [`/groups`](#/groups)                      | Authorization Token | Creates a new group. Sets user as owner.                        |     x     |
-| GET    | [`/groups/:id`](#groups/id)                | Authorization Token | Returns specified group & members of the group.                 |     x     |
-| PUT    | [`/groups/:id`](#groups/:id)               | Authorization Token | Updates group name.                                             |           |
-| DELETE | [`/groups/:id`](#groups/:id)               | Authorization Token | Deletes the group.                                              |           |
-| POST   | [`/groups/:id/invite`](#groups/:id/invite) | Authorization Token | Invites users via email to a group. Send via an array of email? |           |
+| Method | Endpoint                                                 | Access Control      | Description                                                     | Completed |
+| ------ | -------------------------------------------------------- | ------------------- | --------------------------------------------------------------- | :-------: |
+| GET    | [`/groups`](#/groups)                                    | Authorization Token | Returns all groups user is a part of.                           |     x     |
+| POST   | [`/groups`](#/groups)                                    | Authorization Token | Creates a new group. Sets user as owner.                        |     x     |
+| GET    | [`/groups/:id`](#groups/id)                              | Authorization Token | Returns specified group & members of the group.                 |     x     |
+| PUT    | [`/groups/:id`](#groups/:id)                             | Authorization Token | Updates group name.                                             |           |
+| DELETE | [`/groups/:id`](#groups/:id)                             | Authorization Token | Deletes the group.                                              |           |
+| POST   | [`/groups/:id/groupInvitees`](#groups/:id/groupInvitees) | Authorization Token | Invites users via email to a group. Send via an array of email? |           |
 
 # Data Requests & Responses
 
@@ -191,7 +191,7 @@ User is assigned as owner of new group.
 
 ### Response
 
-````
+```
 {
   "message": "success",
   "data": {
@@ -209,13 +209,14 @@ User is assigned as owner of new group.
         "email": "landers.mike@gmail.com"
       }
   }
-}```
+}
+```
 
 ### `/groups/:id`
 
 **Method:** PUT
 
-````
+```
 
 {
 groupName: 'Group Name'
@@ -225,16 +226,15 @@ groupName: 'Group Name'
 
 **Method:** DELETE
 
-### `/groups/:id/invite`
+### `/groups/:id/groupInvitees`
 
 **Method:** POST
 
 ```
 
 {
-
+	"email":"invitedUsersEmail@gmail.com"
 }
-
 ```
 
 <!--
@@ -317,4 +317,3 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 See [Frontend Documentation](https://github.com/lambda-x-voice-chatroom/frontend)
 See [Android Documentation](https://github.com/lambda-x-voice-chatroom/android)
-```

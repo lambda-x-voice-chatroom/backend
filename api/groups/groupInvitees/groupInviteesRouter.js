@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const groupsModel = require('./groupInviteesModel');
+const usersModel = require('../../users/usersModel');
 
 // api/groups/:id/groupInvitees
 
@@ -24,12 +25,22 @@ router.get('/detailed', async (req, res) => {
     }
 });
 
+// Lambda X - Invites member to group and returns list of all invitees
 router.post('/', async (req, res) => {
     let groupId = req.groupId;
-    let invitee = {...req.body, groupId};
+    // let invitee = { ...req.body, groupId };
+    // console.log(req.body.email);
     try {
-        const updatedGroup = await groupsModel.addGroupInvitee(invitee);
-        res.status(201).json(updatedGroup);
+        let user = await usersModel.getUserByEmail(req.body.email);
+
+        if (user == -1) {
+            res.status(404).json({ message: 'User not found' });
+        } else {
+            let invitee = { userId: user.id, groupId };
+            const updatedGroup = await groupsModel.addGroupInvitee(invitee);
+
+            res.status(201).json(updatedGroup);
+        }
     } catch (err) {
         res.status(500).json(err);
     }
@@ -41,7 +52,10 @@ router.delete('/:id', async (req, res) => {
     let groupId = req.groupId;
     let userId = req.params.id;
     try {
-        const updatedGroup = await groupsModel.deleteGroupInvitee(userId, groupId);
+        const updatedGroup = await groupsModel.deleteGroupInvitee(
+            userId,
+            groupId
+        );
         res.status(200).json(updatedGroup);
     } catch (err) {
         res.status(500).json(err);
