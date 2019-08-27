@@ -1,40 +1,40 @@
 const db = require('../../../data/dbConfig.js');
 
 module.exports = {
-
     getGroupInvitees: function(groupId) {
-
         return db('usersGroupsInvitations')
             .select(
-                'usersGroupsInvitations.groupId', 
-                'usersGroupsInvitations.userId', 
-                'users.displayName',
+                'usersGroupsInvitations.groupId',
+                'usersGroupsInvitations.userId',
+                'users.displayName'
             )
             .where({ groupId })
-            .join('users', 'usersGroupsInvitations.userId', 'users.id')
-
+            .join('users', 'usersGroupsInvitations.userId', 'users.id');
     },
 
     getGroupInviteesDetailed: function(groupId) {
-
         return db('usersGroupsInvitations')
             .select(
-                'usersGroupsInvitations.createdAt as inviteeCreatedAt', 
-                'users.*',
+                'usersGroupsInvitations.createdAt as inviteeCreatedAt',
+                'users.*'
             )
             .where({ groupId })
-            .join('users', 'usersGroupsInvitations.userId', 'users.id')
-
+            .join('users', 'usersGroupsInvitations.userId', 'users.id');
     },
 
+    /**
+     *
+     * @param {object} invitee
+     */
     addGroupInvitee: async function(invitee) {
         await db('usersGroupsInvitations').insert(invitee);
-        return this.getGroupInvitees(invitee.groupId)
+        return this.getGroupInvitees(invitee.groupId);
     },
 
     deleteGroupInvitee: async function(userId, groupId) {
-        await db('usersGroupsInvitations').where({ userId, groupId }).del();
-        return this.getGroupInvitees(groupId)
-    },
-    
+        await db('usersGroupsInvitations')
+            .where({ userId, groupId })
+            .del();
+        return this.getGroupInvitees(groupId);
+    }
 };

@@ -39,7 +39,7 @@ async function getUserByEmail(email) {
         .where({ email })
         .first();
     if (user) {
-        return usser;
+        return user;
     } else {
         return -1;
     }
